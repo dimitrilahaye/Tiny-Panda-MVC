@@ -6,9 +6,8 @@ class AboutController {
     public function __construct(){
         return "Je suis construis !";
     }
-
     public function afficher(){
-        return "Display -> ".__METHOD__;
+        echo "Display -> ".__METHOD__;
     }
 
 }

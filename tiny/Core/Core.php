@@ -19,7 +19,6 @@ class Core {
                 $nameSpace[$key] = $value;
             }
         }
-
         $class = implode('/', $nameSpace).'.php';
         require $class;
     }
