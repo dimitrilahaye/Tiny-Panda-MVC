@@ -1,5 +1,5 @@
 <?php
-namespace Router;
+namespace tiny\Router;
     class Route {
 
         private $controller;
@@ -22,12 +22,12 @@ namespace Router;
                 $this->controller = "default";
             }
             if(isset($request[1])){
-                $this->action = $request[1];
+                $this->setAction($request[1]);
             } else {
                 $this->action = "default";
             }
             if($this->controller != null){
-                    $this->matchController();
+                $this->matchController();
             }
         }
 
@@ -47,7 +47,7 @@ namespace Router;
          */
         public function setController($controller){
             $classController = ucfirst($controller)."Controller";
-            $this->controller = 'Controller\\'.$classController;
+            $this->controller = 'src\\Controller\\'.$classController;
         }
 
         /**
@@ -65,7 +65,7 @@ namespace Router;
          * Le champ $action est setté sous la forme "action()"
          */
         public function setAction($action){
-            $this->action = lcfirst($action).'()';
+            $this->action = lcfirst($action);
         }
 
         /**

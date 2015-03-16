@@ -1,8 +1,7 @@
 <?php
-namespace Controller;
+namespace src\Controller;
 
-
-class AboutController extends Controller {
+class AboutController {
 
     public function __construct(){
         return "Je suis construis !";

@@ -1,5 +1,5 @@
 <?php
-namespace View;
+namespace tiny\View;
 
 
 class View {
