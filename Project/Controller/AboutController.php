@@ -1,7 +1,8 @@
 <?php
 namespace Project\Controller;
+use Tiny\Controller\Controller;
 
-class AboutController {
+class AboutController extends Controller{
 
     public function __construct(){
         return "Je suis construis !";
