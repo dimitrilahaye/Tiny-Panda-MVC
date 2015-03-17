@@ -1,4 +1,4 @@
 <?php
-namespace Tiny\Core;
-require_once('Tiny/Core/Core.php');
-Core::init();
+namespace Tiny\Tiny;
+require_once('Tiny/Tiny/Tiny.php');
+Tiny::init();

@@ -1,8 +1,8 @@
 <?php
-namespace Tiny\Core;
+namespace Tiny\Tiny;
 use Tiny\Router\Route;
 
-class Core {
+class Tiny {
 
     public static function register(){
         spl_autoload_register(array(__CLASS__, 'myAutoloader'));
