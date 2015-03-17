@@ -31,7 +31,7 @@ namespace Tiny\Router;
         }
         public function setController($controller){
             $classController = ucfirst($controller)."Controller";
-            $this->controller = 'Project\\Controller\\'.$classController;
+            $this->controller = 'Project\\Controllers\\'.$classController;
         }
         public function getAction() {
             return $this->action;

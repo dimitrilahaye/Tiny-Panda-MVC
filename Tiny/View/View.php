@@ -3,27 +3,28 @@ namespace Tiny\View;
 
 class View {
 
-    private $template;
-    private $params=[];
-    private $model;
+    protected $templatePath;
+    protected $params;
 
-    public function getTemplate(){
-        return $this->template;
-    }
-    public function setTemplate($template){
-        $this->template = $template;
-    }
-    public function getParams(){
-        return $this->params;
-    }
-    public function setParams($params){
+	public function __construct($templatePath, $params) {
+        $templatePath = $_SERVER['DOCUMENT_ROOT']
+            .DIRECTORY_SEPARATOR.'Project'
+            .DIRECTORY_SEPARATOR.'Templates'
+            .DIRECTORY_SEPARATOR.$templatePath;
+        $this->templatePath = $templatePath;
         $this->params = $params;
     }
-    public function getModel(){
-        return $this->model;
-    }
-    public function setModel($model){
-        $this->model = $model;
-    }
 
+	public function render() {
+        if(file_exists($this->templatePath)){
+            extract($this->params);
+            ob_start();
+            include ($this->templatePath);
+            $buffer = ob_get_contents();
+            ob_get_flush();
+            return $buffer;
+        } else {
+            //throw exception...
+        }
+    }
 }
