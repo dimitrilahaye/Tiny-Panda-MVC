@@ -1,6 +1,6 @@
 <?php
 namespace Tiny\Tiny;
-use Tiny\Router\Route;
+use Tiny\Router\Router;
 
 class Tiny {
 
@@ -10,7 +10,7 @@ class Tiny {
     public static function init(){
         self::register();
         $url = $_SERVER['REQUEST_URI'];
-        new Route($url);
+        new Router($url);
     }
     public static function myAutoloader($class) {
         $nameSpace = explode('\\', $class);

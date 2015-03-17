@@ -1,7 +1,7 @@
 <?php
 namespace Tiny\Router;
 
-    class Route {
+    class Router {
 
         private $controller;
         private $action;
