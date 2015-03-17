@@ -1,8 +1,7 @@
 <?php
 namespace Project\Controller;
-use Tiny\Controller\Controller;
 
-class AboutController extends Controller{
+class AboutController {
 
     public function __construct(){
         return "Je suis construis !";
@@ -10,7 +9,7 @@ class AboutController extends Controller{
     public function afficher(){
         echo "Display -> ".__METHOD__;
     }
-    public function liste(){
+    public function lister(){
         echo "Display -> ".__METHOD__;
     }
 
