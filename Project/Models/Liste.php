@@ -1,7 +1,8 @@
 <?php
 namespace Project\Models;
+use Tiny\Model\Model;
 
-class Liste {
+class Liste extends Model{
     private $titre;
     private $auteur;
 

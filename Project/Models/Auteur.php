@@ -1,7 +1,8 @@
 <?php
 namespace Project\Models;
+use Tiny\Model\Model;
 
-class Auteur {
+class Auteur extends Model{
     private $nom;
     private $prenom;
 

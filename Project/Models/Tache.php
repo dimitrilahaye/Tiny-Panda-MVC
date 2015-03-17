@@ -1,7 +1,8 @@
 <?php
 namespace Project\Models;
+use Tiny\Model\Model;
 
-class Tache {
+class Tache extends Model{
     private $libelle;
     private $isDone;
 
