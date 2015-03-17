@@ -1,5 +1,5 @@
 <?php
-namespace tiny\Router;
+namespace Tiny\Router;
     class Route {
 
         private $controller;
@@ -30,7 +30,7 @@ namespace tiny\Router;
         }
         public function setController($controller){
             $classController = ucfirst($controller)."Controller";
-            $this->controller = 'src\\Controller\\'.$classController;
+            $this->controller = 'Project\\Controller\\'.$classController;
         }
         public function getAction() {
             return $this->action;

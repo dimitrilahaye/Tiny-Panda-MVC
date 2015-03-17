@@ -1,7 +1,6 @@
 <?php
-namespace tiny\Controller;
-use tiny\Core\Core as Core;
+namespace Tiny\Controller;
 
-class Controller extends Core {
+class Controller {
 
 }
