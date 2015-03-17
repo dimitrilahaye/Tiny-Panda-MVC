@@ -1,7 +1,8 @@
 <?php
 namespace Project\Controllers;
 use Tiny\Controller\Controller;
-use Tiny\View\View as View;
+use Tiny\View\View;
+use Project\Models\Auteur;
 
 class AboutController extends Controller{
 
@@ -9,7 +10,10 @@ class AboutController extends Controller{
         return "Je suis construis !";
     }
     public function afficher(){
-        $params = array('user' => 'Test');
+        $u = new Auteur;
+        $u->setNom('toto');
+        $u->setPrenom('Tutu');
+        $params = array('user' => $u);
         $myView = new View('About/afficher.php', $params);
         return $myView->render();
     }

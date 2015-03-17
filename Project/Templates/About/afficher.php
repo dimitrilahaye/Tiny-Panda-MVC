@@ -2,7 +2,7 @@
     <head>
     </head>
     <body>
-        <h1><?= $user ?></h1>
-        <p><?= $user ?></p>
+        <h1><?= $user->getNom() ?></h1>
+        <p><?= $user->getPrenom() ?></p>
     </body>
 </html>

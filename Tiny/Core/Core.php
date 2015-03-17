@@ -1,6 +1,6 @@
 <?php
 namespace Tiny\Core;
-use Tiny\Router\Route as Route;
+use Tiny\Router\Route;
 
 class Core {
 
