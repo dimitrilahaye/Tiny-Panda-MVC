@@ -1,10 +1,9 @@
 <html>
     <head>
-        <title><?= $auteur->getPrenom().$auteur->getNom() ?></title>
-
+        <title><?= $user->getPrenom().$user->getNom() ?></title>
     </head>
     <body>
-        <h1><?= $auteur->getNom() ?></h1>
-        <p><?= $auteur->getPrenom() ?></p>
+        <h1><?= $user->getNom() ?></h1>
+        <p><?= $user->getPrenom() ?></p>
     </body>
 </html>

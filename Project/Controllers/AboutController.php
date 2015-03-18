@@ -14,8 +14,9 @@ class AboutController extends Controller{
         return $this->view()->render('About/afficher.php', $params);
     }
     public function lister(){
-        //there -> Services -> DAO -> there !!
-        //This is just for test, sorry :3
+        //TODO — Créer couche de Service pour TinyPDO qui redéfini ses méthode de persistances !!!
+        //new TinyPDOService redéfini les méthodes statiques de PDO...
+        //(trouver un autre nom de classe ^^)
         $pdo = new TinyPDO();
         $query = $pdo->prepare('select * from auteur where id_auteur=1');
         $query->execute();
@@ -25,7 +26,7 @@ class AboutController extends Controller{
         $myUser->setPrenom($user['prenom']);
         $params = array('auteur' => $myUser);
 //        var_dump($myUser);
-        return $this->view()->render('About/afficher.php', $params);
+        return $this->view()->render('About/lister.php', $params);
 //        echo "Display -> ".__METHOD__;
     }
 }
