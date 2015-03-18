@@ -6,16 +6,12 @@ use Project\Models\Auteur;
 
 class AboutController extends Controller{
 
-    public function __construct(){
-        return "Je suis construis !";
-    }
     public function afficher(){
         $u = new Auteur;
         $u->setNom('toto');
         $u->setPrenom('Tutu');
         $params = array('user' => $u);
-        $myView = new View('About/afficher.php', $params);
-        return $myView->render();
+        return $this->view()->render('About/afficher.php', $params);
     }
     public function lister(){
         echo "Display -> ".__METHOD__;

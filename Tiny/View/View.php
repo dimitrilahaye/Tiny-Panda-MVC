@@ -6,16 +6,18 @@ class View {
     protected $templatePath;
     protected $params;
 
-	public function __construct($templatePath, $params) {
+	public function __construct() {
+
+    }
+
+	public function render($templatePath, $params) {
         $templatePath = $_SERVER['DOCUMENT_ROOT']
             .DIRECTORY_SEPARATOR.'Project'
             .DIRECTORY_SEPARATOR.'Templates'
             .DIRECTORY_SEPARATOR.$templatePath;
         $this->templatePath = $templatePath;
         $this->params = $params;
-    }
 
-	public function render() {
         if(file_exists($this->templatePath)){
             extract($this->params);
             ob_start();
