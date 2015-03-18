@@ -9,8 +9,4 @@ class Controller {
         $this->view = new View();
         return $this->view;
     }
-
-    public function __construct(){
-        $this->view = new View();
-    }
 }

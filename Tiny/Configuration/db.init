@@ -1,0 +1,7 @@
+[database]
+driver = mysql
+host = localhost
+port = null
+dbname = tiny_panda_demo
+username = root
+password = root

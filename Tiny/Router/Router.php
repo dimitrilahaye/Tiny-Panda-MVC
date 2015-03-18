@@ -22,9 +22,7 @@ namespace Tiny\Router;
             } else {
                 $this->action = "default";
             }
-            if($this->controller != null){
-                $this->matchController();
-            }
+            $this->matchController();
         }
         public function getController(){
             return $this->controller;

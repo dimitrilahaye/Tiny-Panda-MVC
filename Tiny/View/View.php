@@ -6,10 +6,6 @@ class View {
     protected $templatePath;
     protected $params;
 
-	public function __construct() {
-
-    }
-
 	public function render($templatePath, $params) {
         $templatePath = $_SERVER['DOCUMENT_ROOT']
             .DIRECTORY_SEPARATOR.'Project'

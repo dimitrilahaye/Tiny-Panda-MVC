@@ -23,5 +23,4 @@ class Tiny {
         $class = implode('/', $nameSpace).'.php';
         require $class;
     }
-
 }
