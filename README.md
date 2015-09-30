@@ -9,7 +9,20 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 
 ### Table of contents
 
-[TOC]
+- [Tiny Panda MVC PHP Framework](#tiny-panda-mvc-php-framework)
+	- [Table of contents](#table-of-contents)
+- [Project tree](#project-tree)
+- [Installation](#installation)
+- [Project configuration](#project-configuration)
+	- [Routing configuration](#routing-configuration)
+	- [SQL DataBase configuration](#sql-database-configuration)
+- [Project folder](#project-folder)
+	- [Create a Controller](#create-a-controller)
+	- [Create a method related to a route](#create-a-method-related-to-a-route)
+	- [Call PDO in Controller method](#call-pdo-in-controller-method)
+	- [Return View with parameters](#return-view-with-parameters)
+	- [Use views template](#use-views-template)
+	- [Create a Model](#create-a-model)
 
 ---
 ## Project tree
@@ -119,7 +132,7 @@ public function afficherAction($id){
 }
 ```
 ----------
-##### <i class="icon-pencil"></i> Call PDO in Controller method :
+##### <i class="icon-pencil"></i> Call PDO in Controller method
 ```php
 use Tiny\Persistence\TinyPDO;
 //...
@@ -136,7 +149,7 @@ return $this->view()->render('About/afficher.php', $params);
 //in view, you'll be able to use $user variable !
 ```
 ----------
-#####  <i class="icon-file"></i> Use views template :
+#####  <i class="icon-file"></i> Use views template
     - eg. *`~/Project/Views/About/afficher.php`*
 ```html
 <html>
