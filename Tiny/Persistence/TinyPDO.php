@@ -2,16 +2,14 @@
 namespace Tiny\Persistence;
 Use PDO;
 Use Exception;
+Use Tiny\Handler\DirectoryHandler;
 
 class TinyPDO extends PDO{
     protected $fileIni;
 
     public function __construct(){
-        $this->fileIni = $_SERVER['DOCUMENT_ROOT']
-            .DIRECTORY_SEPARATOR.'Tiny'
-            .DIRECTORY_SEPARATOR.'Configuration'
-            .DIRECTORY_SEPARATOR.'db.init';
-        if(file_exists($this->fileIni)){
+        $this->fileIni = DirectoryHandler::getConfigFile(__DIR__, 'db.init');
+        if($this->fileIni != null){
             $db_init = parse_ini_file($this->fileIni, true);
             $driver = $db_init['database']['driver'];
             $host = $db_init['database']['host'];
