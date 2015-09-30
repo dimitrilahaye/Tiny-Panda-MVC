@@ -1,5 +1,7 @@
 <?php
 namespace Tiny\View;
+use Exception;
+use Tiny\Handler\DirectoryHandler;
 
 class View {
 
@@ -7,10 +9,8 @@ class View {
     protected $params;
 
 	public function render($templatePath, $params) {
-        $templatePath = $_SERVER['DOCUMENT_ROOT']
-            .DIRECTORY_SEPARATOR.'Project'
-            .DIRECTORY_SEPARATOR.'Templates'
-            .DIRECTORY_SEPARATOR.$templatePath;
+        $templatesDir = DirectoryHandler::getProjectDir(__DIR__, 'Templates');
+        $templatePath = $templatesDir.$templatePath;
         $this->templatePath = $templatePath;
         $this->params = $params;
 
@@ -22,7 +22,7 @@ class View {
             ob_get_flush();
             return $buffer;
         } else {
-            //throw exception...
+            throw new Exception('Le template '.$this->templatePath.' n\'a pas pu être trouvé...');
         }
     }
 }
