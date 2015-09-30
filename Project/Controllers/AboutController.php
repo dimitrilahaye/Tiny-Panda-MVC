@@ -1,7 +1,6 @@
 <?php
 namespace Project\Controllers;
 use Tiny\Controller\Controller;
-use Project\Models\Auteur;
 use Project\Models\User;
 use Tiny\Persistence\TinyPDO;
 
