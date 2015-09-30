@@ -38,7 +38,7 @@ There, the folders and subfolders of important elements of [Tiny-Panda]
 - Copy all files in a directory.
 
 - Modify *`~/.htaccess`* file :
-```
+```apacheconf
 RewriteEngine on
 ## add there the subfolders where you've copied Tiny Panda
 RewriteBase /TinyProject/
