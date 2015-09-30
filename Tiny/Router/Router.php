@@ -6,8 +6,8 @@ use Tiny\Handler\DirectoryHandler;
 class Router {
 
         public static function init($request){
-            $route = Router::getRoute($request);
-            Router::launch($route);
+            $route = self::getRoute($request);
+            self::launch($route);
         }
 
     /**
@@ -20,7 +20,7 @@ class Router {
     }
     private function launch($route){
         if(isset($route[0])) {
-            Router::routing($route);
+            self::routing($route);
         } else {
             throw new Exception('incorrect URL');
         }
@@ -29,25 +29,25 @@ class Router {
     /**
      * @param $route
      * @throws Exception
-     * Get and parse routing.init file to find the controller and method
+     * Get and parse routing.init file to find the controller, method and argument(s)
      */
     private function routing($route){
             $fileIni = DirectoryHandler::getConfigFile(__DIR__, 'routing.init');
             $arg = null;
             if($fileIni != null){
                 $routing_init = parse_ini_file($fileIni, true);
-                if(Router::isParam($routing_init, $route)){
-                    $arg = Router::generateArg($route, $routing_init);
-                    $route = Router::generateNewRoute($route);
+                if(self::isParam($routing_init, $route)){
+                    $arg = self::generateArg($route, $routing_init);
+                    $route = self::generateNewRoute($route);
                 }
                 if(isset($routing_init[$route])) {
                     $controller = $routing_init[$route]['controller'];
-                    $controllerClass = Router::generateController($controller);
+                    $controllerClass = self::generateController($controller);
                     if ($controllerClass == null) {
                         throw new Exception('Class ' . $controller . ' doesn\'t seem to exist...');
                     }
                     $method = $routing_init[$route]['method'];
-                    Router::generateMethod($controllerClass, $method, $arg);
+                    self::generateMethod($controllerClass, $method, $arg);
                 } else {
                     throw new Exception('Route doesn\'t configure');
                 }
