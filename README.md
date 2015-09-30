@@ -1,9 +1,18 @@
-# Tiny-Panda-MVC PHP Framework
+Tiny-Panda-MVC PHP Framework
+============================
+
 MVC minimalist educational project in PHP
 
 The purpose of this project is to practice my study of the MVC pattern in PHP.
 
-### Project tree
+-----
+
+### Table of contents
+
+[TOC]
+
+---
+## Project tree
 
 There, the folders and subfolders of important elements of [Tiny-Panda]
 
@@ -33,8 +42,9 @@ There, the folders and subfolders of important elements of [Tiny-Panda]
     |-- Tiny
     |-- View
 ```
+----------
 
-### Installation
+## <i class="icon-upload"></i> Installation
 - Copy all files in a directory.
 
 - Modify *`~/.htaccess`* file :
@@ -44,10 +54,13 @@ RewriteEngine on
 RewriteBase /TinyProject/
 ##...
 ```
+----------
 - Soon I will add a default controller for you to test the installation of the framework.
 
-##### Project configuration
-###### Routing configuration
+----------
+
+### <i class="icon-cog"></i> Project configuration
+##### <i class="icon-cog"></i> Routing configuration
 Modify *`~/Tiny/Configuration/routing.init`*
 ```ini
 ;route definition
@@ -63,7 +76,8 @@ method = afficherAction
 param = id
 ;... other routes
 ```
-###### SQL DataBase configuration
+----------
+##### <i class="icon-cog"></i> SQL DataBase configuration
 Modify *`~/Tiny/Configuration/db.init`*
 ```ini
 ;something more to say ?
@@ -75,9 +89,13 @@ dbname = tiny_panda_demo
 username = root
 password = root
 ```
-##### Project folder
-In *`~/Project`* folder, you can put all your application logic like *`~/Projet/Controllers/`*, *`~/Projet/Views/`* and/or *`~/Projet/Models/`*.
-###### Create a Controller
+----------
+### <i class="icon-folder-open"></i> Project folder
+> **Important :**
+> *In *`~/Project`* folder, you can put all your application logic like *`~/Projet/Controllers/`*, *`~/Projet/Views/`* and/or *`~/Projet/Models/`*.
+
+----------
+#####  <i class="icon-file"></i> Create a Controller
 - Create *`~/Project/Controllers`* folder
 - Create *`~/Project/Controllers/AboutController.php`*
 - Introduce this Controller class :
@@ -91,7 +109,8 @@ class AboutController extends Controller{
 //...
 }
 ```
-- Create a method related to a route :
+----------
+##### <i class="icon-pencil"></i> Create a method related to a route
 ```php
 <?php
 //Method for [about/afficher] route (in configuration example)
@@ -99,7 +118,8 @@ public function afficherAction($id){
 //...
 }
 ```
-- Call PDO in Controller method :
+----------
+##### <i class="icon-pencil"></i> Call PDO in Controller method :
 ```php
 use Tiny\Persistence\TinyPDO;
 //...
@@ -108,13 +128,15 @@ $query = $pdo->prepare('select * from user where id ='.$id);
 $query->execute();
 $user = $query->fetch();
 ```
-- Return View with parameters
+----------
+##### <i class="icon-pencil"></i> Return View with parameters
 ```php
 $params = array('user' => $myUser);
 return $this->view()->render('About/afficher.php', $params);
 //in view, you'll be able to use $user variable !
 ```
-- Use views template :
+----------
+#####  <i class="icon-file"></i> Use views template :
     - eg. *`~/Project/Views/About/afficher.php`*
 ```html
 <html>
@@ -127,10 +149,12 @@ return $this->view()->render('About/afficher.php', $params);
     </body>
 </html>
 ```
-##### WARNING
+----------
+>**WARNING**
 - You **must** keep the *`~/Project/Templates/`* folder. You will place in this folder all your Views logic.
 
-###### Create a Model
+----------
+##### <i class="icon-file"></i> Create a Model
 - Create your Models folder in your *`~/Project/`* folder (eg. *`~/Project/Models/`*)
 - Create your first Model class in it.
     - There, a simple example :
@@ -155,6 +179,7 @@ class User {
     }
 } 
 ```
+----------
 I will improve and I will complete in this readme As my development!
 
 Thanks to use it ;)
