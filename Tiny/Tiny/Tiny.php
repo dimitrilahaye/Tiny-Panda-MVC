@@ -9,8 +9,7 @@ class Tiny {
     }
     public static function init(){
         self::register();
-        $url = $_SERVER['REQUEST_URI'];
-        new Router($url);
+        Router::init($_SERVER);
     }
     public static function myAutoloader($class) {
         $nameSpace = explode('\\', $class);
@@ -19,7 +18,6 @@ class Tiny {
                 $nameSpace[$key] = $value;
             }
         }
-//        var_dump($nameSpace);echo '<br/>';
         $class = implode('/', $nameSpace).'.php';
         require $class;
     }
