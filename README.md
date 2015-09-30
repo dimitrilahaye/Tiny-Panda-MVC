@@ -1,4 +1,4 @@
-# Tiny-Panda-MVC
+# Tiny-Panda-MVC PHP Framework
 MVC minimalist educational project in PHP
 
 The purpose of this project is to practice my study of the MVC pattern in PHP.
