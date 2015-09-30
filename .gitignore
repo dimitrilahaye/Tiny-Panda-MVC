@@ -2,6 +2,8 @@
 .idea/
 *.iml
 *.iws
+message.txt
+out.txt
 
 #OS_X
 .DS_Store
