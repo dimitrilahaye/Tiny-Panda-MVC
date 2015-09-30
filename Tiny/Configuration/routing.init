@@ -1,0 +1,10 @@
+;AboutController routes
+;;route without params
+[about/lister]
+controller = \Project\Controllers\AboutController
+method = listerAction
+;;route with params
+[about/afficher]
+controller = \Project\Controllers\AboutController
+method = afficherAction
+param = id

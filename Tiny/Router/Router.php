@@ -1,53 +1,129 @@
 <?php
 namespace Tiny\Router;
+use Exception;
+use Tiny\Handler\DirectoryHandler;
 
-    class Router {
+class Router {
 
-        private $controller;
-        private $action;
-        private $params;
+        public static function init($request){
+            $route = Router::getRoute($request);
+            Router::launch($route);
+        }
 
-        //TODO : Récupérer les params de la requête !
-        public function __construct($request){
-            $request = rtrim($request, '/');
-            $request = ltrim($request, '/');
-            $request = explode('/', $request);
-            if(isset($request[0])) {
-                $this->setController($request[0]);
+    /**
+     * @param $request
+     * @return route without system directories
+     */
+    private function getRoute($request){
+        $route = DirectoryHandler::getRoute($request);
+        return $route;
+    }
+    private function launch($route){
+        if(isset($route[0])) {
+            Router::routing($route);
+        } else {
+            throw new Exception('incorrect URL');
+        }
+    }
+
+    /**
+     * @param $route
+     * @throws Exception
+     * Get and parse routing.init file to find the controller and method
+     */
+    private function routing($route){
+            $fileIni = DirectoryHandler::getConfigFile(__DIR__, 'routing.init');
+            $arg = null;
+            if($fileIni != null){
+                $routing_init = parse_ini_file($fileIni, true);
+                if(Router::isParam($routing_init, $route)){
+                    $arg = Router::generateArg($route, $routing_init);
+                    $route = Router::generateNewRoute($route);
+                }
+                if(isset($routing_init[$route])) {
+                    $controller = $routing_init[$route]['controller'];
+                    $controllerClass = Router::generateController($controller);
+                    if ($controllerClass == null) {
+                        throw new Exception('Class ' . $controller . ' doesn\'t seem to exist...');
+                    }
+                    $method = $routing_init[$route]['method'];
+                    Router::generateMethod($controllerClass, $method, $arg);
+                } else {
+                    throw new Exception('Route doesn\'t configure');
+                }
             } else {
-                $this->controller = "default";
+                throw new Exception('Unable to find or read routing.init...');
             }
-            if(isset($request[1])){
-                $this->setAction($request[1]);
-            } else {
-                $this->action = "default";
+        }
+
+    /**
+     * @param $fileIni
+     * @param $route
+     * @return true if route has params
+     */
+    private function isParam($fileIni, $route){
+        if(!isset($fileIni[$route])){
+            $route = explode('/', $route);
+            array_pop($route);
+            $route = implode('/',$route);
+            if(isset($fileIni[$route])) {
+                return true;
             }
-            $this->matchController();
-        }
-        public function getController(){
-            return $this->controller;
-        }
-        public function setController($controller){
-            $classController = ucfirst($controller)."Controller";
-            $this->controller = 'Project\\Controllers\\'.$classController;
-        }
-        public function getAction() {
-            return $this->action;
-        }
-        public function setAction($action){
-            $this->action = lcfirst($action);
-        }
-        private function matchController() {
-            $controller = $this->getController();
+        } return false;
+    }
+
+    /**
+     * @param $route
+     * @param $fileIni
+     * @return $arg with route param
+     */
+    private function generateArg($route, $fileIni){
+        $route = explode('/', $route);
+        $arg = $route[sizeof($route)-1];
+        $route = implode('/', $route);
+        $param = ($fileIni[$route]['param']);
+        extract(array($param => $arg));
+        return $arg;
+    }
+
+    /**
+     * @param $route
+     * @return nice route without param at the end
+     */
+    private function generateNewRoute($route){
+        $route = explode('/', $route);
+        array_pop($route);
+        return implode('/',$route);
+    }
+
+    /**
+     * @param $controller
+     * @return controller class
+     */
+    private function generateController($controller) {
             if (class_exists($controller)) {
-                $newController = new $controller();
-                $this->matchAction($newController);
+                return new $controller();
+            } else {
+                return null;
             }
         }
-        private function matchAction($controller){
-            $action = $this->getAction();
-            if(method_exists($controller, $action)){
-                $controller->$action();
+
+    /**
+     * @param $controller
+     * @param $method
+     * @param $arg
+     * @throws Exception
+     * Launch method from the controller $controller
+     */
+    private function generateMethod($controller, $method, $arg){
+        if(method_exists($controller, $method)){
+            if($arg != null) {
+                $controller->$method($arg);
+            } else {
+                $controller->$method();
             }
+        } else {
+            throw new Exception($method.' method doesn\'t seem to exist in class '.$controller.'...');
         }
+    }
 }
