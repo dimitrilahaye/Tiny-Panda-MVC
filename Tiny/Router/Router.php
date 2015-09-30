@@ -1,6 +1,7 @@
 <?php
 namespace Tiny\Router;
 use Exception;
+use Tiny\Controller\Controller;
 use Tiny\Handler\DirectoryHandler;
 
 class Router {
@@ -12,7 +13,7 @@ class Router {
 
     /**
      * @param $request
-     * @return route without system directories
+     * @return String : route without system directories
      */
     private function getRoute($request){
         $route = DirectoryHandler::getRoute($request);
@@ -59,7 +60,7 @@ class Router {
     /**
      * @param $fileIni
      * @param $route
-     * @return true if route has params
+     * @return Bool : true if route has param
      */
     private function isParam($fileIni, $route){
         if(!isset($fileIni[$route])){
@@ -88,7 +89,7 @@ class Router {
 
     /**
      * @param $route
-     * @return nice route without param at the end
+     * @return String : nice route without param at the end
      */
     private function generateNewRoute($route){
         $route = explode('/', $route);
@@ -98,7 +99,7 @@ class Router {
 
     /**
      * @param $controller
-     * @return controller class
+     * @return Controller
      */
     private function generateController($controller) {
             if (class_exists($controller)) {
