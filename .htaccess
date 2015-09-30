@@ -1,5 +1,5 @@
 RewriteEngine on
-RewriteBase /
+RewriteBase /TinyProject/
 
 ## ne doit pas etre un fichier existant
 RewriteCond %{REQUEST_FILENAME} !-f
