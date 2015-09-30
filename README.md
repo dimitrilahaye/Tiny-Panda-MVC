@@ -104,8 +104,9 @@ password = root
 ```
 ----------
 ### <i class="icon-folder-open"></i> Project folder
-> **Important :**
-> *In *`~/Project`* folder, you can put all your application logic like *`~/Projet/Controllers/`*, *`~/Projet/Views/`* and/or *`~/Projet/Models/`*.
+> **IMPORTANT :**
+>
+> In *`~/Project`* folder, you can put all your application logic like *`~/Projet/Controllers/`*, *`~/Projet/Views/`* and/or *`~/Projet/Models/`*.
 
 ----------
 #####  <i class="icon-file"></i> Create a Controller
@@ -150,11 +151,11 @@ return $this->view()->render('About/afficher.php', $params);
 ```
 ----------
 #####  <i class="icon-file"></i> Use views template
-    - eg. *`~/Project/Views/About/afficher.php`*
-```html
+eg. *`~/Project/Views/About/afficher.php`*
+```php
 <html>
     <head>
-        <!-- classical use of PHP language -->
+        // classical use of PHP language
         <title><?= $user->getName() ?></title>
     </head>
     <body>
@@ -193,8 +194,11 @@ class User {
 } 
 ```
 ----------
-I will improve and I will complete in this readme As my development!
+>**To be continued**
+>
+> I will improve and I will complete in this readme As my development!
 
-Thanks to use it ;)
+> **Thanks to use it ;)**
 
 [Tiny-Panda]: <https://github.com/dimitrilahaye/Tiny-Panda-MVC>
+
