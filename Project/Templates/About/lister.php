@@ -1,9 +1,11 @@
 <html>
     <head>
-        <title><?= $auteur->getPrenom().$auteur->getNom() ?></title>
+        <title>Liste de users</title>
     </head>
     <body>
-        <h1><?= $auteur->getNom() ?></h1>
-        <p><?= $auteur->getPrenom() ?></p>
+        <?php
+            foreach($users as $user){ ?>
+                 <h1><?= $user->getName() ?></h1>
+            <?php } ?>
     </body>
 </html>
