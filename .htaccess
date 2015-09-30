@@ -1,11 +1,11 @@
 RewriteEngine on
 RewriteBase /TinyProject/
 
-## ne doit pas etre un fichier existant
+## cannot be an existing file
 RewriteCond %{REQUEST_FILENAME} !-f
-## ne doit pas etre un dossier existant
+## cannot be an existing folder
 RewriteCond %{REQUEST_FILENAME} !-d
 
-## on renvoit tous sur index.php
+## index.php intercepts all requests
 RewriteRule . index.php [L]
 RewriteRule ^index\.php$ - [L]
