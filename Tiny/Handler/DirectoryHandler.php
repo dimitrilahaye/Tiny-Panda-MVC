@@ -48,7 +48,7 @@ class DirectoryHandler {
     /**
      * @param $directory
      * @param $target
-     * @return directory $target in Project folder
+     * @return string : directory $target in Project folder
      */
     public static function getProjectDir($directory, $target){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
