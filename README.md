@@ -266,6 +266,6 @@ class User {
 >
 > I will improve and I will complete in this readme As my development!
 
-> **Thanks to use it ;)**
+> ![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif) **Thanks to use it ;)**
 
 [Tiny-Panda]: <https://github.com/dimitrilahaye/Tiny-Panda-MVC>
