@@ -1,4 +1,4 @@
-![ ](http://dl-multimedias.net/img/tiny_panda.gif)Tiny-Panda-MVC PHP Framework
+![ ](http://dl-multimedias.net/img/tiny_panda.gif) Tiny-Panda-MVC PHP Framework
 ============================
 
 MVC minimalist educational project in PHP
