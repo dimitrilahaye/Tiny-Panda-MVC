@@ -69,7 +69,8 @@ RewriteBase /TinyProject/
 ##...
 ```
 ----------
-- Soon I will add a default controller for you to test the installation of the framework.
+> **COMING SOON**
+> I will add a default controller for you to test the installation of the framework.
 
 ----------
 ### ![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif) <i class="icon-cog"></i> Project configuration
