@@ -20,6 +20,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 	- [Create a Controller](#-create-a-controller)
 	- [Create a method related to a route](#-create-a-method-related-to-a-route)
 	- [Call PDO in Controller method](#-call-pdo-in-controller-method)
+	- [Serialize object and objects array](#-serialize-object-and-objects-array)
 	- [Return View with parameters](#-return-view-with-parameters)
 	- [Use views template](#-use-views-template)
 	- [Create a Model](#-create-a-model)
@@ -143,6 +144,38 @@ $query->execute();
 $user = $query->fetch();
 ```
 ----------
+##### <i class="icon-pencil"></i> Serialize object and objects array
+```php
+namespace Project\Controllers;
+use Tiny\Handler\JsonHandler;
+//...
+class AboutController extends Controller{
+//...
+	public function listerAction(){
+			$users = [];
+	        $u1 = new User();
+	        $u1->setName('John Doe');
+	        $u1->setId(12);
+	        $u2 = new User();
+	        $u2->setName('Jane Doe');
+	        $u2->setId(36);
+	        $u3 = new User();
+	        $u3->setName('Wade Wilson');
+	        $u3->setId(56);
+	        $users[] = $u1;
+	        $users[] = $u2;
+	        $users[] = $u3;
+	        $jsonArray = JsonHandler::serializeObjectsArray('Project\\Models\\User', $users);
+	        echo $jsonArray;
+	        /*[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"},{"id":56,"name":"Wade Wilson"}]*/
+	        $json = JsonHandler::serializeObject('Project\\Models\\User', $u3);
+	        echo $json;
+	        /*{"id":56,"name":"Wade Wilson"}*/
+	}
+}
+```
+
+----------
 ##### <i class="icon-pencil"></i> Return View with parameters
 ```php
 $params = array('user' => $myUser);
@@ -194,11 +227,12 @@ class User {
 } 
 ```
 ----------
->**To be continued**
+>**TO BE CONTINUED**
 >
 > I will improve and I will complete in this readme As my development!
 
 > **Thanks to use it ;)**
 
 [Tiny-Panda]: <https://github.com/dimitrilahaye/Tiny-Panda-MVC>
+
 
