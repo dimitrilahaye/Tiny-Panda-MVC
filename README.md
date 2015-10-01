@@ -20,7 +20,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 	- [Create a Controller](#-create-a-controller)
 	- [Create a method related to a route](#-create-a-method-related-to-a-route)
 	- [Call PDO in Controller method](#-call-pdo-in-controller-method)
-	- [Serialize object and objects array in a controller method](#-serialize-object-and-objects-array-in-a-controller-method)
+	- [Serialize object and objects array in a controller method](#serialize-and-deserialize-object-and-objects-array-)
 	- [Return View with parameters](#-return-view-with-parameters)
 	- [Use views template](#-use-views-template)
 	- [Create a Model](#-create-a-model)
@@ -145,7 +145,8 @@ $user = $query->fetch();
 //...
 ```
 ----------
-##### <i class="icon-pencil"></i> Serialize object and objects array in a Controller method
+##### <i class="icon-pencil"></i> Serialize and Deserialize object (and objects array)
+
 ```php
 use Tiny\Handler\JsonHandler;
 //...
@@ -208,6 +209,20 @@ echo $json;
       }
    ]
 }*/
+$object = JsonHandler::deserializeObject('Project\\Models\\User', $json);
+echo $object->getId().' '.$object->getName();
+/*
+56 Wade Wilson
+*/
+$objectArray = JsonHandler::deserializeObjectsArray('Project\\Models\\User', $jsonArray);
+foreach($objectArray as $object) {
+    echo $object->getId() . ' ' . $object->getName().'<br/>';
+}
+/*
+12 John Doe
+36 Jane Doe
+56 Wade Wilson
+*/
 //...
 ```
 
