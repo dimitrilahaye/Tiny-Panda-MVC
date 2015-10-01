@@ -27,6 +27,7 @@ class AboutController extends Controller{
         $query->execute();
         $result = $query;
         $users = [];
+        $subUsers = [];
         $u1 = new User();
         $u1->setName('John Doe');
         $u1->setId(12);
@@ -36,6 +37,9 @@ class AboutController extends Controller{
         $u3 = new User();
         $u3->setName('Wade Wilson');
         $u3->setId(56);
+        $subUsers[] = $u1;
+        $subUsers[] = $u2;
+        $u3->setUser($subUsers);
         $users[] = $u1;
         $users[] = $u2;
         $users[] = $u3;
