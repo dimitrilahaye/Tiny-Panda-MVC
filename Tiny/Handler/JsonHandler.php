@@ -12,7 +12,7 @@ class JsonHandler {
      * @return string : json object from $classNamespace and an $object
      */
     public static function serializeObject($classNamespace, $object){
-        if(file_exists(str_replace('\\', '/', $classNamespace.'.php'))) {
+        if(self::isClassExists($classNamespace)) {
             $class = new \ReflectionClass($classNamespace);
             $prop = $class->getProperties();
             $arr = [];
@@ -52,8 +52,42 @@ class JsonHandler {
         }
         return json_encode($jsonArray);
     }
+
+    public static function deserializeObject($classNamespace, $json){
+        $object = null;
+        if(self::isClassExists($classNamespace)) {
+            $object = new $classNamespace();
+            $json = json_decode($json);
+            foreach($json as $key => $value){
+                $method = 'set'.ucfirst($key);
+                if(method_exists($object, $method)) {
+                    $object->$method($value);
+                } else {
+                    throw new \ErrorException("Method ".$method." doesn't exist !");
+                }
+            }
+        } else {
+            throw new \ErrorException("The class ".$classNamespace." doesn't exist");
+        }
+        return $object;
+    }
+
+    public static function deserializeObjectsArray($classNamespace, $jsonArray){
+        $array = [];
+        foreach(json_decode($jsonArray) as $json) {
+            $object = self::deserializeObject($classNamespace, json_encode($json));
+            $array[] = $object;
+        }
+        return $array;
+    }
+
+    public static function isClassExists($classNamespace){
+        if(file_exists(str_replace('\\', '/', $classNamespace.'.php'))){
+            return true;
+        }
+        return false;
+    }
     /**
-     * TODO : methode deserializeObject($classNamespace, $json)
-     * Pour chaque json.key on fait un set sur le nouvel objet ! (un peu de norme bordel !!)
+     * TODO : gérer les tableaux et les json array avec deserializeObject($classNamespace, $json)
      */
 } 
