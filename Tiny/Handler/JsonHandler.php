@@ -26,10 +26,6 @@ class JsonHandler {
                 }
                 else if(is_array($p->getValue($object))) {
                     $c = new \ReflectionClass($p->getValue($object)[0]);
-                    //foreach($p->getValue($object) as $obj){
-                      //  $c = new \ReflectionClass($obj);
-                        //$value = json_decode(self::serializeObject($c->getName(), $obj));
-                    //}
                     $value = json_decode(self::serializeObjectsArray($c->getName(), $p->getValue($object)));
                 }
                 else {
@@ -59,6 +55,5 @@ class JsonHandler {
     /**
      * TODO : methode deserializeObject($classNamespace, $json)
      * Pour chaque json.key on fait un set sur le nouvel objet ! (un peu de norme bordel !!)
-     * TODO : modifier serializeObject si l'objet contient des tableaux d'objets
      */
 } 
