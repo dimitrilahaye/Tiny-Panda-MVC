@@ -9,14 +9,14 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 
 ### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) Table of contents
 
-- [Tiny Panda MVC PHP Framework](#tiny-panda-mvc-php-framework)
-	- [Table of contents](#table-of-contents)
-- [Project tree](#project-tree)
-- [Installation](#-installation)
-- [Project configuration](#-project-configuration)
+- [Tiny Panda MVC PHP Framework](#-tiny-panda-mvc-php-framework)
+	- [Table of contents](#-table-of-contents)
+- [Project tree](#-project-tree)
+- [Installation](#--installation)
+- [Project configuration](#--project-configuration)
 	- [Routing configuration](#-routing-configuration)
 	- [SQL DataBase configuration](#-sql-database-configuration)
-- [Project folder](#-project-folder)
+- [Project folder](#--project-folder)
 	- [Create a Controller](#-create-a-controller)
 	- [Create a method related to a route](#-create-a-method-related-to-a-route)
 	- [Call PDO in Controller method](#-call-pdo-in-controller-method)
