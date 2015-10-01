@@ -18,13 +18,31 @@ class JsonHandler {
             $arr = [];
             foreach ($prop as $p) {
                 $p->setAccessible(true);
-                $arr += array($p->getName() => $p->getValue($object));
+                $key = $p->getName();
+                $value = null;
+                if(is_object($p->getValue($object))) {
+                    $c = new \ReflectionClass($p->getValue($object));
+                    $value = json_decode(self::serializeObject($c->getName(), $p->getValue($object)));
+                }
+                else if(is_array($p->getValue($object))) {
+                    $c = new \ReflectionClass($p->getValue($object)[0]);
+                    //foreach($p->getValue($object) as $obj){
+                      //  $c = new \ReflectionClass($obj);
+                        //$value = json_decode(self::serializeObject($c->getName(), $obj));
+                    //}
+                    $value = json_decode(self::serializeObjectsArray($c->getName(), $p->getValue($object)));
+                }
+                else {
+                    $value = $p->getValue($object);
+                }
+                if($value != null){
+                    $arr += array($key => $value);
+                }
             }
             return json_encode($arr);
         }
         throw new \ErrorException("The class ".$classNamespace." doesn't exist");
     }
-
     /**
      * @param $classNamespace
      * @param $array
@@ -38,4 +56,9 @@ class JsonHandler {
         }
         return json_encode($jsonArray);
     }
+    /**
+     * TODO : methode deserializeObject($classNamespace, $json)
+     * Pour chaque json.key on fait un set sur le nouvel objet ! (un peu de norme bordel !!)
+     * TODO : modifier serializeObject si l'objet contient des tableaux d'objets
+     */
 } 
