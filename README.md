@@ -70,6 +70,7 @@ RewriteBase /TinyProject/
 ```
 ----------
 > **COMING SOON**
+>
 > I will add a default controller for you to test the installation of the framework.
 
 ----------
