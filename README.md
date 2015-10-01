@@ -142,37 +142,33 @@ $pdo = new TinyPDO();
 $query = $pdo->prepare('select * from user where id ='.$id);
 $query->execute();
 $user = $query->fetch();
+//...
 ```
 ----------
-##### <i class="icon-pencil"></i> Serialize object and objects array
+##### <i class="icon-pencil"></i> Serialize object and objects array in Controller method
 ```php
-namespace Project\Controllers;
 use Tiny\Handler\JsonHandler;
 //...
-class AboutController extends Controller{
+$users = [];
+$u1 = new User();
+$u1->setName('John Doe');
+$u1->setId(12);
+$u2 = new User();
+$u2->setName('Jane Doe');
+$u2->setId(36);
+$u3 = new User();
+$u3->setName('Wade Wilson');
+$u3->setId(56);
+$users[] = $u1;
+$users[] = $u2;
+$users[] = $u3;
+$jsonArray = JsonHandler::serializeObjectsArray('Project\\Models\\User', $users);
+echo $jsonArray;
+/*[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"},{"id":56,"name":"Wade Wilson"}]*/
+$json = JsonHandler::serializeObject('Project\\Models\\User', $u3);
+echo $json;
+/*{"id":56,"name":"Wade Wilson"}*/
 //...
-	public function listerAction(){
-			$users = [];
-	        $u1 = new User();
-	        $u1->setName('John Doe');
-	        $u1->setId(12);
-	        $u2 = new User();
-	        $u2->setName('Jane Doe');
-	        $u2->setId(36);
-	        $u3 = new User();
-	        $u3->setName('Wade Wilson');
-	        $u3->setId(56);
-	        $users[] = $u1;
-	        $users[] = $u2;
-	        $users[] = $u3;
-	        $jsonArray = JsonHandler::serializeObjectsArray('Project\\Models\\User', $users);
-	        echo $jsonArray;
-	        /*[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"},{"id":56,"name":"Wade Wilson"}]*/
-	        $json = JsonHandler::serializeObject('Project\\Models\\User', $u3);
-	        echo $json;
-	        /*{"id":56,"name":"Wade Wilson"}*/
-	}
-}
 ```
 
 ----------
