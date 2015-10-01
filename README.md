@@ -150,6 +150,7 @@ $user = $query->fetch();
 use Tiny\Handler\JsonHandler;
 //...
 $users = [];
+$subUsers = [];
 $u1 = new User();
 $u1->setName('John Doe');
 $u1->setId(12);
@@ -159,15 +160,54 @@ $u2->setId(36);
 $u3 = new User();
 $u3->setName('Wade Wilson');
 $u3->setId(56);
+$subUsers[] = $u1;
+$subUsers[] = $u2;
+$u3->setUser($subUsers);
 $users[] = $u1;
 $users[] = $u2;
 $users[] = $u3;
 $jsonArray = JsonHandler::serializeObjectsArray('Project\\Models\\User', $users);
 echo $jsonArray;
-/*[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"},{"id":56,"name":"Wade Wilson"}]*/
+/*[
+   {
+      "id":12,
+      "name":"John Doe"
+   },
+   {
+      "id":36,
+      "name":"Jane Doe"
+   },
+   {
+      "id":56,
+      "name":"Wade Wilson",
+      "user":[
+         {
+            "id":12,
+            "name":"John Doe"
+         },
+         {
+            "id":36,
+            "name":"Jane Doe"
+         }
+      ]
+   }
+]*/
 $json = JsonHandler::serializeObject('Project\\Models\\User', $u3);
 echo $json;
-/*{"id":56,"name":"Wade Wilson"}*/
+/*{
+   "id":56,
+   "name":"Wade Wilson",
+   "user":[
+      {
+         "id":12,
+         "name":"John Doe"
+      },
+      {
+         "id":36,
+         "name":"Jane Doe"
+      }
+   ]
+}*/
 //...
 ```
 
@@ -230,5 +270,3 @@ class User {
 > **Thanks to use it ;)**
 
 [Tiny-Panda]: <https://github.com/dimitrilahaye/Tiny-Panda-MVC>
-
-
