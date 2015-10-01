@@ -1,4 +1,4 @@
-Tiny-Panda-MVC PHP Framework
+![ ](http://dl-multimedias.net/img/tiny_panda.gif)Tiny-Panda-MVC PHP Framework
 ============================
 
 MVC minimalist educational project in PHP
@@ -7,7 +7,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 
 -----
 
-### Table of contents
+### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) Table of contents
 
 - [Tiny Panda MVC PHP Framework](#tiny-panda-mvc-php-framework)
 	- [Table of contents](#table-of-contents)
@@ -26,7 +26,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 	- [Create a Model](#-create-a-model)
 
 ---
-## Project tree
+## ![ ](http://dl-multimedias.net/img/tiny_panda.gif) Project tree
 
 There, the folders and subfolders of important elements of [Tiny-Panda]
 
@@ -58,7 +58,7 @@ There, the folders and subfolders of important elements of [Tiny-Panda]
 ```
 ----------
 
-## <i class="icon-upload"></i> Installation
+## ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-upload"></i> Installation
 - Copy all files in a directory.
 
 - Modify *`~/.htaccess`* file :
@@ -73,7 +73,7 @@ RewriteBase /TinyProject/
 
 ----------
 
-### <i class="icon-cog"></i> Project configuration
+### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-cog"></i> Project configuration
 ##### <i class="icon-cog"></i> Routing configuration
 Modify *`~/Tiny/Configuration/routing.init`*
 ```ini
@@ -104,7 +104,7 @@ username = root
 password = root
 ```
 ----------
-### <i class="icon-folder-open"></i> Project folder
+### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-folder-open"></i> Project folder
 > **IMPORTANT :**
 >
 > In *`~/Project`* folder, you can put all your application logic like *`~/Projet/Controllers/`*, *`~/Projet/Views/`* and/or *`~/Projet/Models/`*.
@@ -282,6 +282,6 @@ class User {
 >
 > I will improve and I will complete in this readme As my development!
 
-> **Thanks to use it ;)**
+> ![ ](http://dl-multimedias.net/img/tiny_panda.gif) **Thanks to use it ;)**
 
 [Tiny-Panda]: <https://github.com/dimitrilahaye/Tiny-Panda-MVC>
