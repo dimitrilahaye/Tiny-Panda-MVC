@@ -44,9 +44,13 @@ class AboutController extends Controller{
         $users[] = $u2;
         $users[] = $u3;
         $jsonArray = JsonHandler::serializeObjectsArray('Project\\Models\\User', $users);
-        echo $jsonArray;
         $json = JsonHandler::serializeObject('Project\\Models\\User', $u3);
-        echo $json;
+        $object = JsonHandler::deserializeObject('Project\\Models\\User', $json);
+        echo $object->getId().' '.$object->getName();
+        $objectArray = JsonHandler::deserializeObjectsArray('Project\\Models\\User', $jsonArray);
+        foreach($objectArray as $object) {
+            echo $object->getId() . ' ' . $object->getName().'<br/>';
+        }
         $params = array('users' => $users);
         return $this->view()->render('About/lister.php', $params);
     }
