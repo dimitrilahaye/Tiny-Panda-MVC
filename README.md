@@ -20,7 +20,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 	- [Create a Controller](#-create-a-controller)
 	- [Create a method related to a route](#-create-a-method-related-to-a-route)
 	- [Call PDO in Controller method](#-call-pdo-in-controller-method)
-	- [Serialize object and objects array in a controller method](#serialize-and-deserialize-object-and-objects-array-)
+	- [Serialize object and objects array in a controller method](#-serialize-and-deserialize-object-and-objects-array)
 	- [Return View with parameters](#-return-view-with-parameters)
 	- [Use views template](#-use-views-template)
 	- [Create a Model](#-create-a-model)
