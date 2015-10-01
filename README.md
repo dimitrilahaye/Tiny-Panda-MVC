@@ -27,8 +27,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 	- [Create a Model](#-create-a-model)
 
 ---
-![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif)
-## Project tree
+## ![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif) Project tree
 
 There, the folders and subfolders of important elements of [Tiny-Panda]
 
@@ -59,8 +58,7 @@ There, the folders and subfolders of important elements of [Tiny-Panda]
     |-- View
 ```
 ----------
-![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif)
-## <i class="icon-upload"></i> Installation
+## ![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif) <i class="icon-upload"></i> Installation
 - Copy all files in a directory.
 
 - Modify *`~/.htaccess`* file :
@@ -74,8 +72,7 @@ RewriteBase /TinyProject/
 - Soon I will add a default controller for you to test the installation of the framework.
 
 ----------
-![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif)
-### <i class="icon-cog"></i> Project configuration
+### ![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif) <i class="icon-cog"></i> Project configuration
 ##### <i class="icon-cog"></i> Routing configuration
 Modify *`~/Tiny/Configuration/routing.init`*
 ```ini
@@ -106,8 +103,7 @@ username = root
 password = root
 ```
 ----------
-![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif)
-### <i class="icon-folder-open"></i> Project folder
+### ![enter image description here](http://i943.photobucket.com/albums/ad275/nikennyyyyy/thththanimated-panda-1.gif) <i class="icon-folder-open"></i> Project folder
 > **IMPORTANT :**
 >
 > In *`~/Project`* folder, you can put all your application logic like *`~/Projet/Controllers/`*, *`~/Projet/Views/`* and/or *`~/Projet/Models/`*.
