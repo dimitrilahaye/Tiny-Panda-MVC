@@ -12,7 +12,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 
 - [Tiny Panda MVC PHP Framework](#tiny-panda-mvc-php-framework)
 	- [Table of contents](#table-of-contents)
-- [Project tree](#project-tree)
+- [Project tree](#-project-tree)
 - [Installation](#--installation)
 - [Project configuration](#--project-configuration)
 	- [Routing configuration](#-routing-configuration)
