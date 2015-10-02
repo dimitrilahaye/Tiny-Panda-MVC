@@ -3,6 +3,8 @@ namespace Tiny\Router;
 use Exception;
 use Tiny\Controller\Controller;
 use Tiny\Handler\DirectoryHandler;
+use Tiny\Handler\HttpHandler;
+use Tiny\Http\Server;
 
 class Router {
 
@@ -118,10 +120,12 @@ class Router {
      */
     private function generateMethod($controller, $method, $arg){
         if(method_exists($controller, $method)){
+            $server = new Server($_SERVER);
+            $request = HttpHandler::createRequestWithServer($server);
             if($arg != null) {
-                $controller->$method($arg);
+                $controller->$method($request, $arg);
             } else {
-                $controller->$method();
+                $controller->$method($request);
             }
         } else {
             throw new Exception($method.' method doesn\'t seem to exist in class '.$controller.'...');
