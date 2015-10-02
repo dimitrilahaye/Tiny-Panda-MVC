@@ -6,7 +6,7 @@ namespace Tiny\Handler;
 class DirectoryHandler {
     /**
      * @param $request
-     * @return route without system directories
+     * @return string : route without system directories
      */
     public static function getRoute($request){
         $url = $request['REQUEST_URI'];
@@ -23,7 +23,7 @@ class DirectoryHandler {
     /**
      * @param $directory
      * @param $file
-     * @return configuration file $file
+     * @return string : configuration file $file
      */
     public static function getConfigFile($directory, $file){
         $fileIni = DirectoryHandler::getTinyDir($directory, 'Configuration').$file;
@@ -36,7 +36,7 @@ class DirectoryHandler {
 
     /**
      * @param $directory
-     * @return Configuration directory
+     * @return string : Configuration directory
      */
     public static function getConfigDir($directory){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
@@ -61,7 +61,7 @@ class DirectoryHandler {
     /**
      * @param $directory
      * @param $target
-     * @return directory $target in Tiny folder
+     * @return string : directory $target in Tiny folder
      */
     public static function getTinyDir($directory, $target){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
