@@ -4,12 +4,12 @@ use Tiny\Router\Router;
 
 class Tiny {
 
-    public static function register(){
-        spl_autoload_register(array(__CLASS__, 'myAutoloader'));
-    }
     public static function init(){
         self::register();
         Router::init($_SERVER);
+    }
+    public static function register(){
+        spl_autoload_register(array(__CLASS__, 'myAutoloader'));
     }
     public static function myAutoloader($class) {
         $nameSpace = explode('\\', $class);
