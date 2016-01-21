@@ -3,9 +3,8 @@
 namespace Tiny\Handler;
 
 use Tiny\Http\HttpConstants;
-use Tiny\Http\Request;
 use Tiny\Http\Response;
-use Tiny\Http\Server;
+use Tiny\Http\TinyRequest;
 
 class HttpHandler {
 
@@ -43,24 +42,32 @@ class HttpHandler {
                 header('Transfert-Encoding: ' . $response->getTransfertEncoding());
             }
             if ($response->getBody() != null) {
-                echo $response->getBody();
+                //echo $response->getBody();
             }
         } else {
             throw new \HttpException("No response to send...");
         }
     }
 
-    public static function createRequestWithServer(Server $server){
-        $request = new Request();
-        $request->setHttpAccept($server->getHttpAccept());
-        $request->setHttpAcceptEncoding($server->getHttpAcceptEncoding());
-        $request->setHttpAcceptLanguage($server->getHttpAcceptLanguage());
-        $request->setHttpCacheControl($server->getHttpCacheControl());
-        $request->setHttpConnection($server->getHttpConnection());
-        $request->setHttpHost($server->getHttpHost());
-        $request->setHttpUserAgent($server->getHttpUserAgent());
-        $request->setRedirectStatus($server->getRedirectStatus());
-        $request->setRequestMethod($server->getRequestMethod());
+    public static function createRequest(){
+        $request = new TinyRequest();
+        $request->setRawDatas(http_get_request_body());
+        $request->setRedirectStatus($_SERVER['REDIRECT_STATUS']);
+        $request->setContentLength($_SERVER['CONTENT_LENGTH']);
+        $request->setHttpAccept($_SERVER['HTTP_ACCEPT']);
+        $request->setHttpAcceptLanguage($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $request->setServerAddr($_SERVER['SERVER_ADDR']);
+        $request->setServerPort($_SERVER['SERVER_PORT']);
+        $request->setRemoteAddr($_SERVER['REMOTE_ADDR']);
+        $request->setRequestScheme($_SERVER['REQUEST_SCHEME']);
+        $request->setRedirectQueryString($_SERVER['REDIRECT_QUERY_STRING']);
+        $request->setRedirectUrl($_SERVER['REDIRECT_URL']);
+        $request->setGatewayInterface($_SERVER['GATEWAY_INTERFACE']);
+        $request->setServerProtocol($_SERVER['SERVER_PROTOCOL']);
+        $request->setRequestMethod($_SERVER['REQUEST_METHOD']);
+        $request->setQueryString($_SERVER['QUERY_STRING']);
+        $request->setRequestUri($_SERVER['REQUEST_URI']);
+        $request->setRequestArray($_REQUEST);
         return $request;
     }
 }

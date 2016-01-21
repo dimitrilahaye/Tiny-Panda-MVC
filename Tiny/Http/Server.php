@@ -7,7 +7,7 @@ namespace Tiny\Http;
  * Class Server
  * @package Tiny\Http
  */
-class Server {
+class Server extends \HttpRequest{
     private $redirectStatus;
     private $httpHost;
     private $httpUserAgent;
@@ -41,39 +41,40 @@ class Server {
     private $requestTimeFloat;
     private $requestTime;
 
-    function __construct($request){
-        $this->PHPSelf = $request['PHP_SELF'];
-        $this->contextDocumentRoot = $request['CONTEXT_DOCUMENT_ROOT'];
-        $this->contextPrefix = $request['CONTEXT_PREFIX'];
-        $this->documentRoot = $request['DOCUMENT_ROOT'];
-        $this->gatewayInterface = $request['GATEWAY_INTERFACE'];
-        $this->httpAccept = $request['HTTP_ACCEPT'];
-        $this->httpAcceptEncoding = $request['HTTP_ACCEPT_ENCODING'];
-        $this->httpAcceptLanguage = $request['HTTP_ACCEPT_LANGUAGE'];
-        $this->httpCacheControl = $request['HTTP_CACHE_CONTROL'];
-        $this->httpConnection = $request['HTTP_CONNECTION'];
-        $this->httpHost = $request['HTTP_HOST'];
-        $this->httpUserAgent = $request['HTTP_USER_AGENT'];
-        $this->path = $request['PATH'];
-        $this->queryString = $request['QUERY_STRING'];
-        $this->redirectStatus = $request['REDIRECT_STATUS'];
-        $this->redirectURL = $request['REDIRECT_URL'];
-        $this->remoteADDR = $request['REMOTE_ADDR'];
-        $this->remotePort = $request['REMOTE_PORT'];
-        $this->requestMethod = $request['REQUEST_METHOD'];
-        $this->requestScheme = $request['REQUEST_SCHEME'];
-        $this->requestTime = $request['REQUEST_TIME'];
-        $this->requestTimeFloat = $request['REQUEST_TIME_FLOAT'];
-        $this->requestURI = $request['REQUEST_URI'];
-        $this->scriptFileName = $request['SCRIPT_FILE_NAME'];
-        $this->scriptName = $request['SCRIPT_NAME'];
-        $this->serverADDR = $request['SERVER_ADDR'];
-        $this->serverAdmin = $request['SERVER_ADMIN'];
-        $this->serverName = $request['SERVER_NAME'];
-        $this->serverPort = $request['SERVER_PORT'];
-        $this->serverProtocol = $request['SERVER_PROTOCOL'];
-        $this->serverSignature = $request['SERVER_SIGNATURE'];
-        $this->serverSoftware = $request['SERVER_SOFTWARE'];
+    function __construct($server){
+        parent::__construct();
+        $this->PHPSelf = $server['PHP_SELF'];
+        $this->contextDocumentRoot = $server['CONTEXT_DOCUMENT_ROOT'];
+        $this->contextPrefix = $server['CONTEXT_PREFIX'];
+        $this->documentRoot = $server['DOCUMENT_ROOT'];
+        $this->gatewayInterface = $server['GATEWAY_INTERFACE'];
+        $this->httpAccept = $server['HTTP_ACCEPT'];
+        $this->httpAcceptEncoding = $server['HTTP_ACCEPT_ENCODING'];
+        $this->httpAcceptLanguage = $server['HTTP_ACCEPT_LANGUAGE'];
+        $this->httpCacheControl = $server['HTTP_CACHE_CONTROL'];
+        $this->httpConnection = $server['HTTP_CONNECTION'];
+        $this->httpHost = $server['HTTP_HOST'];
+        $this->httpUserAgent = $server['HTTP_USER_AGENT'];
+        $this->path = $server['PATH'];
+        $this->queryString = $server['QUERY_STRING'];
+        $this->redirectStatus = $server['REDIRECT_STATUS'];
+        $this->redirectURL = $server['REDIRECT_URL'];
+        $this->remoteADDR = $server['REMOTE_ADDR'];
+        $this->remotePort = $server['REMOTE_PORT'];
+        $this->requestMethod = $server['REQUEST_METHOD'];
+        $this->requestScheme = $server['REQUEST_SCHEME'];
+        $this->requestTime = $server['REQUEST_TIME'];
+        $this->requestTimeFloat = $server['REQUEST_TIME_FLOAT'];
+        $this->requestURI = $server['REQUEST_URI'];
+        $this->scriptFileName = $server['SCRIPT_FILE_NAME'];
+        $this->scriptName = $server['SCRIPT_NAME'];
+        $this->serverADDR = $server['SERVER_ADDR'];
+        $this->serverAdmin = $server['SERVER_ADMIN'];
+        $this->serverName = $server['SERVER_NAME'];
+        $this->serverPort = $server['SERVER_PORT'];
+        $this->serverProtocol = $server['SERVER_PROTOCOL'];
+        $this->serverSignature = $server['SERVER_SIGNATURE'];
+        $this->serverSoftware = $server['SERVER_SOFTWARE'];
     }
 
     /**

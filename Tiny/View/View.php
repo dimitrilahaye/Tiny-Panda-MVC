@@ -16,7 +16,9 @@ class View {
         $this->params = $params;
 
         if(file_exists($this->templatePath)){
-            extract($this->params);
+            if($this->params != null){
+                extract($this->params);
+            }
             ob_start();
             include ($this->templatePath);
             $buffer = ob_get_contents();

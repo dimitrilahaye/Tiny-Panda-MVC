@@ -4,21 +4,6 @@ namespace Tiny\Handler;
 
 
 class DirectoryHandler {
-    /**
-     * @param $request
-     * @return string : route without system directories
-     */
-    public static function getRoute($request){
-        $url = $request['REQUEST_URI'];
-        $dir = $request['SCRIPT_NAME'];
-        $url = rtrim(ltrim($url, '/'), '/');
-        $dir = rtrim(ltrim($dir, '/'), '/');
-        $dir = explode('/', $dir);
-        array_pop($dir);
-        $url = str_replace($dir, '', $url);
-        $url = ltrim($url, '/');
-        return $url;
-    }
 
     /**
      * @param $directory
@@ -43,6 +28,17 @@ class DirectoryHandler {
         array_pop($dir);
         $dir = implode(DIRECTORY_SEPARATOR, $dir);
         return $dir.DIRECTORY_SEPARATOR.'Configuration';
+    }
+
+    /**
+     * @param $directory
+     * @return string : Cache directory
+     */
+    public static function getCacheDir($directory){
+        $dir = explode(DIRECTORY_SEPARATOR, $directory);
+        array_pop($dir);
+        $dir = implode(DIRECTORY_SEPARATOR, $dir);
+        return $dir.DIRECTORY_SEPARATOR.'Cache';
     }
 
     /**

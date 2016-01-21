@@ -84,8 +84,7 @@ class JsonHandler {
     public static function isClassExists($classNamespace){
         if(file_exists(str_replace('\\', '/', $classNamespace.'.php'))){
             return true;
-        }
-        return false;
+        } return false;
     }
     /**
      * TODO : gérer les tableaux et les json array avec deserializeObject($classNamespace, $json)

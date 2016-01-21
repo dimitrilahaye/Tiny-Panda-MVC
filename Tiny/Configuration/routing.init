@@ -1,10 +1,24 @@
 ;AboutController routes
-;;route without params
+;;route without params : http://mysite.com/about/lister
+[.]
+controller = \Project\Controllers\AboutController
+action = totoAction
+name = root
 [about/lister]
 controller = \Project\Controllers\AboutController
-method = listerAction
-;;route with params
+action = listerAction
+name = about lister
+;;route with params :  : http://mysite.com/about/afficher/:id
 [about/afficher]
 controller = \Project\Controllers\AboutController
-method = afficherAction
-param = id
+action = afficherAction
+argument = id
+name = about afficher
+[about/test]
+controller = \Project\Controllers\AboutController
+action = testAction
+name = about test
+[about/response]
+controller = \Project\Controllers\AboutController
+action = responseTestAction
+name = about response

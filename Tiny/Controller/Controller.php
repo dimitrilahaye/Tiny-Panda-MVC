@@ -9,4 +9,8 @@ class Controller {
         $this->view = new View();
         return $this->view;
     }
+
+    public function getBody(){
+        return http_get_request_body();
+    }
 }
