@@ -6,12 +6,16 @@ namespace Tiny\Handler;
 /**
  * Class RouteHandler
  * @package Tiny\Handler
+ *
+ * Provides methods to manage router work
  */
 class RouteHandler {
 
     /**
      * @param $request
-     * @return string : route without system directories
+     * @return string
+     *
+     * Return route without system directories
      */
     public static function getRoute($request){
         $url = $request['REQUEST_URI'];
@@ -28,7 +32,9 @@ class RouteHandler {
     /**
      * @param $fileIni
      * @param $route
-     * @return Bool : true if route has args
+     * @return Bool
+     *
+     * Returns true if route has args
      */
     public static function isArgs($fileIni, $route){
         if($route == "/"){
@@ -47,7 +53,9 @@ class RouteHandler {
 
     /**
      * @param $route
-     * @return bool : true if route has query
+     * @return bool
+     *
+     * Returns true if route has query
      */
     public static function isQuery($route){
         if($route == "/"){
@@ -62,7 +70,9 @@ class RouteHandler {
     /**
      * @param $route
      * @param $fileIni
-     * @return $arg with route param
+     * @return $arg
+     *
+     * Return arg from route params
      */
     public static function generateArg($route, $fileIni){
         $route = explode('/', $route);
@@ -76,7 +86,9 @@ class RouteHandler {
 
     /**
      * @param $route
-     * @return String : nice route without argument (eg. my/route/12)
+     * @return String
+     *
+     * Returns nice route without argument (eg. my/route/12)
      */
     public static function generateRouteArgsLess($route){
         $route = explode('/', $route);
@@ -86,7 +98,9 @@ class RouteHandler {
 
     /**
      * @param $route
-     * @return array : nice route without query at the end (eg. my/route?query=12&anotherquery=24)
+     * @return array
+     *
+     * Returns nice route without query at the end (eg. my/route?query=12&anotherquery=24)
      */
     public static function generateRouteQueryLess($route) {
         $route = explode("?", $route);
@@ -97,6 +111,7 @@ class RouteHandler {
     /**
      * @param $controller
      * @return $controller
+     *
      * Generate a controller and instantiate it with route string
      */
     public static function generateController($controller) {
@@ -113,6 +128,7 @@ class RouteHandler {
      * @param $arg
      * @param $request
      * @throws \Exception
+     *
      * Generate a method with route string, then launch this method
      */
     public static function generateAndLaunchAction($controller, $action, $arg, $request){
@@ -130,7 +146,9 @@ class RouteHandler {
     /**
      * @param $route
      * @param $routing_init
-     * @return array : return args and route without argument or query
+     * @return array
+     *
+     * Returns args and route without argument or query
      */
     public static function cleanRoute($route, $routing_init) {
         $arg = null;

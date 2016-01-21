@@ -8,6 +8,8 @@ use Tiny\Http\TinyRequest;
 /**
  * Class Router
  * @package Tiny\Router
+ *
+ * Provides methods to manage the routing system.
  */
 class Router {
 
@@ -15,6 +17,8 @@ class Router {
      * @param $server
      * @param TinyRequest $request
      * @throws Exception
+     *
+     * Launches routing operations
      */
     public static function init($server, TinyRequest $request){
         $route = RouteHandler::getRoute($server);
@@ -25,6 +29,7 @@ class Router {
      * @param $route
      * @param $request
      * @throws Exception
+     *
      * Launch routing, as it is written
      */
     private function launch($route, TinyRequest $request){
@@ -39,6 +44,7 @@ class Router {
      * @param $route
      * @param $request
      * @throws Exception
+     *
      * Get and parse routing.init file to find the controller, method and argument(s)
      */
     private function routing($route, TinyRequest $request){

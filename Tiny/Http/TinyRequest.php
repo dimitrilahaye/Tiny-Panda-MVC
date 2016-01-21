@@ -2,7 +2,15 @@
 
 namespace Tiny\Http;
 
+/**
+ * Class TinyRequest
+ * @package Tiny\Http
+ *
+ * Provides the request manage
+ */
 class TinyRequest {
+
+    //TODO : a lot of refactoring !!!
 
     private $_redirectStatus;
     private $_rawDatas;

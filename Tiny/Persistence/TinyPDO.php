@@ -4,6 +4,12 @@ Use PDO;
 Use Exception;
 Use Tiny\Handler\DirectoryHandler;
 
+/**
+ * Class TinyPDO
+ * @package Tiny\Persistence
+ *
+ * Provides methods to make SQL operations
+ */
 class TinyPDO extends PDO{
     protected $fileIni;
 

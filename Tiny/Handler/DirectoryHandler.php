@@ -2,13 +2,20 @@
 
 namespace Tiny\Handler;
 
-
+/**
+ * Class DirectoryHandler
+ * @package Tiny\Handler
+ *
+ * Provides methods to find files in Project or Tiny directory
+ */
 class DirectoryHandler {
 
     /**
      * @param $directory
      * @param $file
-     * @return string : configuration file $file
+     * @return string
+     *
+     * Returns configuration file $file
      */
     public static function getConfigFile($directory, $file){
         $fileIni = DirectoryHandler::getTinyDir($directory, 'Configuration').$file;
@@ -21,7 +28,9 @@ class DirectoryHandler {
 
     /**
      * @param $directory
-     * @return string : Configuration directory
+     * @return string
+     *
+     * Returns Configuration directory
      */
     public static function getConfigDir($directory){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
@@ -32,7 +41,9 @@ class DirectoryHandler {
 
     /**
      * @param $directory
-     * @return string : Cache directory
+     * @return string
+     *
+     * Returns Cache directory
      */
     public static function getCacheDir($directory){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
@@ -44,7 +55,9 @@ class DirectoryHandler {
     /**
      * @param $directory
      * @param $target
-     * @return string : directory $target in Project folder
+     * @return string
+     *
+     * Returns directory $target in Project folder
      */
     public static function getProjectDir($directory, $target){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
@@ -57,7 +70,9 @@ class DirectoryHandler {
     /**
      * @param $directory
      * @param $target
-     * @return string : directory $target in Tiny folder
+     * @return string
+     *
+     * Returns directory $target in Tiny folder
      */
     public static function getTinyDir($directory, $target){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);

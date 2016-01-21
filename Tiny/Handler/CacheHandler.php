@@ -4,13 +4,26 @@ namespace Tiny\Handler;
 
 use \Exception;
 
-
+/**
+ * Class CacheHandler
+ * @package Tiny\Handler
+ *
+ * Provides methods to create cache files.
+ */
 class CacheHandler {
 
+    /**
+     * @throws Exception
+     * Generates all the cache files
+     */
     public static function initCacheFiles(){
         self::createRouteCacheFile();
     }
 
+    /**
+     * @throws Exception
+     * Generates the cache file for the route
+     */
     private function createRouteCacheFile(){
         $cacheDir = DirectoryHandler::getCacheDir(__DIR__);
         mkdir($cacheDir);
@@ -50,13 +63,22 @@ class CacheHandler {
         }
     }
 
-    private function createCacheFile($cacheFileName){
-        $cacheFile = fopen($cacheFileName, "w") or die("Unable to create file ".$cacheFileName);
+    /**
+     * @param $cacheFilePath : path of the cache file to create
+     * Create the cache file with path passed in argument
+     */
+    private function createCacheFile($cacheFilePath){
+        $cacheFile = fopen($cacheFilePath, "w") or die("Unable to create file ".$cacheFilePath);
         fclose($cacheFile);
     }
 
-    private function writeInCacheFile($cacheFileName, $text){
-        file_put_contents($cacheFileName, $text);
+    /**
+     * @param $cacheFilePath : path of the cache file to create
+     * @param $text : content to write in the file
+     * Writes content in the cache file specified
+     */
+    private function writeInCacheFile($cacheFilePath, $text){
+        file_put_contents($cacheFilePath, $text);
     }
 
 

@@ -3,11 +3,25 @@ namespace Tiny\View;
 use Exception;
 use Tiny\Handler\DirectoryHandler;
 
+/**
+ * Class View
+ * @package Tiny\View
+ *
+ * Super class of all the View of the Project
+ */
 class View {
 
     protected $templatePath;
     protected $params;
 
+    /**
+     * @param $templatePath
+     * @param $params
+     * @return null|string
+     * @throws Exception
+     *
+     * Return to the client the template with the params if exist
+     */
 	public function render($templatePath, $params) {
         $buffer = null;
         $templatesDir = DirectoryHandler::getProjectDir(__DIR__, 'Templates');
@@ -31,4 +45,6 @@ class View {
         }
         return $buffer;
     }
+
+    //TODO : redirection with name of the route (routeCache.ini)
 }

@@ -5,8 +5,17 @@ use Tiny\Router\Router;
 use Tiny\Handler\HttpHandler;
 use Tiny\Handler\CacheHandler;
 
+/**
+ * Class Tiny
+ * @package Tiny\Tiny
+ *
+ * This class will initialize the php app.
+ */
 class Tiny {
 
+    /**
+     * Launches the autoloader, generates the cache files then launches the router
+     */
     public static function init(){
         //autoloader
         self::register();
@@ -18,10 +27,18 @@ class Tiny {
         Router::init($_SERVER, $request);
     }
 
+    /**
+     * Launches the autoloader
+     */
     private function register(){
         spl_autoload_register(array(__CLASS__, 'tinyAutoLoader'));
     }
 
+    /**
+     * @param $class : class.php to register.
+     *
+     * Autoloader of Tiny Panda Framework
+     */
     public static function tinyAutoLoader($class) {
         $nameSpace = explode('\\', $class);
         foreach($nameSpace as $key =>  $value){
