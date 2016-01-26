@@ -12,6 +12,8 @@ class TinyDirectory {
 
     //TODO : refactor this class !!
 
+    //TODO : finish actuals comments
+
     /**
      * @param $directory
      * @param $file

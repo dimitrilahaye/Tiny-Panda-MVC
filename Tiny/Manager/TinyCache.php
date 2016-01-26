@@ -78,7 +78,7 @@ class TinyCache {
     }
 
     /**
-     * @param $cacheFilePath : path of the cache file to create
+     * @param $cacheFilePath String : path of the cache file to create
      *
      * Create the cache file with path passed in argument
      */
@@ -88,8 +88,8 @@ class TinyCache {
     }
 
     /**
-     * @param $cacheFilePath : path of the cache file to create
-     * @param $text : content to write in the file
+     * @param $cacheFilePath String : path of the cache file to create
+     * @param $text String : content to write in the file
      *
      * Writes content in the cache file specified
      */

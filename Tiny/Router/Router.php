@@ -25,8 +25,8 @@ class Router {
     }
 
     /**
-     * @param $server
-     * @param TinyRequest $request
+     * @param $server $_SERVER
+     * @param $request TinyRequest
      * @throws Exception
      *
      * Launches routing operations
@@ -37,8 +37,8 @@ class Router {
     }
 
     /**
-     * @param $route
-     * @param $request
+     * @param $route []
+     * @param $request TinyRequest
      * @throws Exception
      *
      * Launch routing, as it is written
@@ -52,8 +52,8 @@ class Router {
     }
 
     /**
-     * @param $route
-     * @param $request
+     * @param $route []
+     * @param $request TinyRequest
      * @throws Exception
      *
      * Get and parse routing.ini file to find the controller, method and argument(s)
