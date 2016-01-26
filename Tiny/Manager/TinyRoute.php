@@ -1,15 +1,15 @@
 <?php
 
-namespace Tiny\Handler;
+namespace Tiny\Manager;
 
 
 /**
- * Class RouteHandler
- * @package Tiny\Handler
+ * Class TinyRoute
+ * @package Tiny\Manager
  *
  * Provides methods to manage router work
  */
-class RouteHandler {
+class TinyRoute {
 
     /**
      * @param $request
@@ -17,7 +17,7 @@ class RouteHandler {
      *
      * Return route without system directories
      */
-    public static function getRoute($request){
+    public function getRoute($request){
         $url = $request['REQUEST_URI'];
         $dir = $request['SCRIPT_NAME'];
         $url = rtrim(ltrim($url, '/'), '/');
@@ -36,7 +36,7 @@ class RouteHandler {
      *
      * Returns true if route has args
      */
-    public static function isArgs($fileIni, $route){
+    public function isArgs($fileIni, $route){
         if($route == "/"){
             return false;
         } else if(!isset($fileIni[$route])){
@@ -57,7 +57,7 @@ class RouteHandler {
      *
      * Returns true if route has query
      */
-    public static function isQuery($route){
+    public function isQuery($route){
         if($route == "/"){
             return false;
         } else if(strpos($route, "?")){
@@ -74,7 +74,7 @@ class RouteHandler {
      *
      * Return arg from route params
      */
-    public static function generateArg($route, $fileIni){
+    public function generateArg($route, $fileIni){
         $route = explode('/', $route);
         $arg = $route[sizeof($route)-1];
         unset($route[sizeof($route)-1]);
@@ -90,7 +90,7 @@ class RouteHandler {
      *
      * Returns nice route without argument (eg. my/route/12)
      */
-    public static function generateRouteArgsLess($route){
+    public function generateRouteArgsLess($route){
         $route = explode('/', $route);
         array_pop($route);
         return implode('/',$route);
@@ -102,7 +102,7 @@ class RouteHandler {
      *
      * Returns nice route without query at the end (eg. my/route?query=12&anotherquery=24)
      */
-    public static function generateRouteQueryLess($route) {
+    public function generateRouteQueryLess($route) {
         $route = explode("?", $route);
         $route = $route[0];
         return $route;
@@ -114,7 +114,7 @@ class RouteHandler {
      *
      * Generate a controller and instantiate it with route string
      */
-    public static function generateController($controller) {
+    public function generateController($controller) {
         if (class_exists($controller)) {
             return new $controller();
         } else {
@@ -131,7 +131,7 @@ class RouteHandler {
      *
      * Generate a method with route string, then launch this method
      */
-    public static function generateAndLaunchAction($controller, $action, $arg, $request){
+    public function generateAndLaunchAction($controller, $action, $arg, $request){
         if(method_exists($controller, $action)){
             if($arg != null) {
                 $controller->$action($request, $arg);
@@ -150,14 +150,14 @@ class RouteHandler {
      *
      * Returns args and route without argument or query
      */
-    public static function cleanRoute($route, $routing_init) {
+    public function cleanRoute($route, $routing_init) {
         $arg = null;
         if (self::isArgs($routing_init, $route)) {
-            $arg = self::generateArg($route, $routing_init);
-            $route = self::generateRouteArgsLess($route);
+            $arg = $this->generateArg($route, $routing_init);
+            $route = $this->generateRouteArgsLess($route);
             return array($arg, $route);
-        } else if (self::isQuery($route)) {
-            $route = self::generateRouteQueryLess($route);
+        } else if ($this->isQuery($route)) {
+            $route = $this->generateRouteQueryLess($route);
             return array($arg, $route);
         }return array($arg, $route);
     }

@@ -1,9 +1,9 @@
 <?php
 namespace Tiny\Router;
 use Exception;
-use Tiny\Handler\DirectoryHandler;
-use Tiny\Handler\RouteHandler;
-use Tiny\Http\TinyRequest;
+use Tiny\Manager\TinyDirectory;
+use Tiny\Manager\TinyRoute;
+use Tiny\Manager\TinyRequest;
 
 /**
  * Class Router
@@ -14,15 +14,26 @@ use Tiny\Http\TinyRequest;
 class Router {
 
     /**
+     * @var TinyRoute
+     *
+     * Provides methods to redirect to the controller and the method associated to the URL
+     */
+    private $tinyRoute;
+
+    public function __construct(){
+        $this->tinyRoute = new TinyRoute();
+    }
+
+    /**
      * @param $server
      * @param TinyRequest $request
      * @throws Exception
      *
      * Launches routing operations
      */
-    public static function init($server, TinyRequest $request){
-        $route = RouteHandler::getRoute($server);
-        self::launch($route, $request);
+    public function init($server, TinyRequest $request){
+        $route = $this->tinyRoute->getRoute($server);
+        $this->launch($route, $request);
     }
 
     /**
@@ -34,7 +45,7 @@ class Router {
      */
     private function launch($route, TinyRequest $request){
         if(isset($route[0])) {
-            self::routing($route, $request);
+            $this->routing($route, $request);
         } else {
             throw new Exception('incorrect URL');
         }
@@ -45,28 +56,29 @@ class Router {
      * @param $request
      * @throws Exception
      *
-     * Get and parse routing.init file to find the controller, method and argument(s)
+     * Get and parse routing.ini file to find the controller, method and argument(s)
      */
     private function routing($route, TinyRequest $request){
-            $fileIni = DirectoryHandler::getConfigFile(__DIR__, 'routing.init');
+            $tinyDir = new TinyDirectory();
+            $fileIni = $tinyDir->getConfigFile(__DIR__, 'routing.ini');
             $arg = null;
             if($fileIni != null){
-                $routing_init = parse_ini_file($fileIni, true);
-                List($arg, $route) = RouteHandler::cleanRoute($route, $routing_init);
+                $routingIni = parse_ini_file($fileIni, true);
+                List($arg, $route) = $this->tinyRoute->cleanRoute($route, $routingIni);
                 $route = $route == "/" ? "." : $route;
-                if(isset($routing_init[$route])) {
-                    $controller = $routing_init[$route]['controller'];
-                    $controllerClass = RouteHandler::generateController($controller);
+                if(isset($routingIni[$route])) {
+                    $controller = $routingIni[$route]['controller'];
+                    $controllerClass = $this->tinyRoute->generateController($controller);
                     if ($controllerClass == null) {
                         throw new Exception('Class ' . $controller . ' doesn\'t seem to exist...');
                     }
-                    $action = $routing_init[$route]['action'];
-                    RouteHandler::generateAndLaunchAction($controllerClass, $action, $arg, $request);
+                    $action = $routingIni[$route]['action'];
+                    $this->tinyRoute->generateAndLaunchAction($controllerClass, $action, $arg, $request);
                 } else {
                     throw new Exception('Route doesn\'t configure');
                 }
             } else {
-                throw new Exception('Unable to find or read routing.init...');
+                throw new Exception('Unable to find or read routing.ini...');
             }
         }
 }

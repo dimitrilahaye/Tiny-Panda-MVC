@@ -1,18 +1,29 @@
 <?php
 namespace Tiny\View;
 use Exception;
-use Tiny\Handler\DirectoryHandler;
+use Tiny\Manager\TinyDirectory;
 
 /**
- * Class View
+ * Class TinyView
  * @package Tiny\View
  *
  * Super class of all the View of the Project
  */
-class View {
+class TinyView {
 
+    /**
+     * @var string
+     *
+     * Path to the template.html
+     */
     protected $templatePath;
-    protected $params;
+
+    /**
+     * @var array
+     *
+     * Array of parameters for the view
+     */
+    protected $parameters;
 
     /**
      * @param $templatePath
@@ -24,14 +35,15 @@ class View {
      */
 	public function render($templatePath, $params) {
         $buffer = null;
-        $templatesDir = DirectoryHandler::getProjectDir(__DIR__, 'Templates');
+        $tinyDir = new TinyDirectory();
+        $templatesDir = $tinyDir->getProjectDir(__DIR__, 'Templates');
         $templatePath = $templatesDir.$templatePath;
         $this->templatePath = $templatePath;
-        $this->params = $params;
+        $this->parameters = $params;
 
         if(file_exists($this->templatePath)){
-            if($this->params != null){
-                extract($this->params);
+            if($this->parameters != null){
+                extract($this->parameters);
             }
             ob_start();
             include ($this->templatePath);
@@ -45,6 +57,4 @@ class View {
         }
         return $buffer;
     }
-
-    //TODO : redirection with name of the route (routeCache.ini)
 }

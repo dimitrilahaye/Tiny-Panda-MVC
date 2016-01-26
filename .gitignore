@@ -2,9 +2,6 @@
 .idea/
 *.iml
 *.iws
-message.txt
-out.txt
-go-pear.phar
 
 #OS_X
 .DS_Store

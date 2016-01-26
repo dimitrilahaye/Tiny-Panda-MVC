@@ -1,14 +1,23 @@
 <?php
 
-namespace Tiny\Http;
+namespace Tiny\Manager;
 
 /**
  * Class TinyRequest
- * @package Tiny\Http
+ * @package Tiny\Manager
  *
  * Provides the request manage
  */
 class TinyRequest {
+
+    private static $instance;
+
+    private function __construct(){}
+
+    public static function getInstance(){
+        static::$instance = static::$instance == null ? new TinyRequest() : static::$instance;
+        return static::$instance;
+    }
 
     //TODO : a lot of refactoring !!!
 

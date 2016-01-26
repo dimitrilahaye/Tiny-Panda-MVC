@@ -1,9 +1,12 @@
 <?php
 namespace Tiny\Tiny;
 
+require_once(dirname(__FILE__)."/../Manager/TinyManager.php");
+
+use Tiny\Manager\TinyCache;
+use Tiny\Manager\TinyHttp;
+use Tiny\Manager\TinyManager;
 use Tiny\Router\Router;
-use Tiny\Handler\HttpHandler;
-use Tiny\Handler\CacheHandler;
 
 /**
  * Class Tiny
@@ -11,26 +14,31 @@ use Tiny\Handler\CacheHandler;
  *
  * This class will initialize the php app.
  */
-class Tiny {
+class Tiny extends TinyManager{
 
     /**
+     *
      * Launches the autoloader, generates the cache files then launches the router
      */
-    public static function init(){
+    public function init(){
         //autoloader
-        self::register();
-        //TODO : code this method again
-        $request = HttpHandler::createRequest();
+        $this->register();
+        //create request
+        $tinyHttp = new TinyHttp();
+        $request = $tinyHttp->createRequest();
         //init the cache files
-        CacheHandler::initCacheFiles();
+        $tinyCache = new TinyCache();
+        $tinyCache->initCacheFiles();
         //launch the controller and the associated method
-        Router::init($_SERVER, $request);
+        $router = new Router();
+        $router->init($_SERVER, $request);
     }
 
     /**
+     *
      * Launches the autoloader
      */
-    private function register(){
+    private static function register(){
         spl_autoload_register(array(__CLASS__, 'tinyAutoLoader'));
     }
 

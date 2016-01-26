@@ -1,14 +1,16 @@
 <?php
 
-namespace Tiny\Handler;
+namespace Tiny\Manager;
 
 /**
- * Class DirectoryHandler
- * @package Tiny\Handler
+ * Class TinyDirectory
+ * @package Tiny\Manager
  *
  * Provides methods to find files in Project or Tiny directory
  */
-class DirectoryHandler {
+class TinyDirectory {
+
+    //TODO : refactor this class !!
 
     /**
      * @param $directory
@@ -17,8 +19,8 @@ class DirectoryHandler {
      *
      * Returns configuration file $file
      */
-    public static function getConfigFile($directory, $file){
-        $fileIni = DirectoryHandler::getTinyDir($directory, 'Configuration').$file;
+    public function getConfigFile($directory, $file){
+        $fileIni = $this->getTinyDir($directory, 'Configuration').$file;
         if(file_exists($fileIni)) {
             return $fileIni;
         } else {
@@ -32,7 +34,7 @@ class DirectoryHandler {
      *
      * Returns Configuration directory
      */
-    public static function getConfigDir($directory){
+    public function getConfigDir($directory){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
         array_pop($dir);
         $dir = implode(DIRECTORY_SEPARATOR, $dir);
@@ -45,7 +47,7 @@ class DirectoryHandler {
      *
      * Returns Cache directory
      */
-    public static function getCacheDir($directory){
+    public function getCacheDir($directory){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
         array_pop($dir);
         $dir = implode(DIRECTORY_SEPARATOR, $dir);
@@ -59,7 +61,7 @@ class DirectoryHandler {
      *
      * Returns directory $target in Project folder
      */
-    public static function getProjectDir($directory, $target){
+    public function getProjectDir($directory, $target){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
         array_pop($dir);
         array_pop($dir);
@@ -74,7 +76,7 @@ class DirectoryHandler {
      *
      * Returns directory $target in Tiny folder
      */
-    public static function getTinyDir($directory, $target){
+    public function getTinyDir($directory, $target){
         $dir = explode(DIRECTORY_SEPARATOR, $directory);
         array_pop($dir);
         $dir = implode(DIRECTORY_SEPARATOR, $dir);

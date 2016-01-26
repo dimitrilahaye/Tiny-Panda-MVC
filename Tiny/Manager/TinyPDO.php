@@ -1,8 +1,7 @@
 <?php
-namespace Tiny\Persistence;
+namespace Tiny\Manager;
 Use PDO;
 Use Exception;
-Use Tiny\Handler\DirectoryHandler;
 
 /**
  * Class TinyPDO
@@ -11,10 +10,17 @@ Use Tiny\Handler\DirectoryHandler;
  * Provides methods to make SQL operations
  */
 class TinyPDO extends PDO{
+
+    /**
+     * @var string
+     *
+     * Path to Tiny/Configuration/db.ini
+     */
     protected $fileIni;
 
     public function __construct(){
-        $this->fileIni = DirectoryHandler::getConfigFile(__DIR__, 'db.init');
+        $tinyDir = new TinyDirectory();
+        $tinyDir->getConfigFile(__DIR__, 'db.ini');
         if($this->fileIni != null){
             $db_init = parse_ini_file($this->fileIni, true);
             $driver = $db_init['database']['driver'];

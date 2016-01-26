@@ -2,11 +2,11 @@
 namespace Tiny\Model;
 
 /**
- * Class Model
+ * Class TinyModel
  * @package Tiny\Model
  *
  * Super class of all the models of the Project
  */
-class Model {
+class TinyModel {
 
 }
