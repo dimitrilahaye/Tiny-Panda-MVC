@@ -1,11 +1,8 @@
 <?php
 namespace Tiny\Tiny;
 
-require_once(dirname(__FILE__)."/../Manager/TinyManager.php");
-
 use Tiny\Manager\TinyCache;
 use Tiny\Manager\TinyHttp;
-use Tiny\Manager\TinyManager;
 use Tiny\Router\Router;
 
 /**
@@ -14,7 +11,7 @@ use Tiny\Router\Router;
  *
  * This class will initialize the php app.
  */
-class Tiny extends TinyManager{
+class Tiny {
 
     /**
      *
@@ -30,8 +27,8 @@ class Tiny extends TinyManager{
         $tinyCache = new TinyCache();
         $tinyCache->initCacheFiles();
         //launch the controller and the associated method
-        $router = new Router();
-        $router->init($_SERVER, $request);
+        $tinyRouter = new Router();
+        $tinyRouter->init($_SERVER, $request);
     }
 
     /**
