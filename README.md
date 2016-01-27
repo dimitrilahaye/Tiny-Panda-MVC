@@ -24,6 +24,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 	- [Return View with parameters](#-return-view-with-parameters)
 	- [Use views template](#-use-views-template)
 	- [Create a Model](#-create-a-model)
+- [Coming Soon](#-coming-soon)
 
 ---
 ## ![ ](http://dl-multimedias.net/img/tiny_panda.gif) Project tree
@@ -68,10 +69,6 @@ RewriteEngine on
 RewriteBase /TinyProject/
 ##...
 ```
-----------
-> **COMING SOON**
->
-> I will add a default controller for you to test the installation of the framework.
 
 ----------
 
@@ -280,6 +277,24 @@ class User {
 } 
 ```
 ----------
+### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-cog"></i> Coming Soon
+> - Update the README with TestController and the last updates
+>
+> - Finish wrapper for TinyRequest
+>
+> - Do wrapper for TinyResponse
+>
+> - More than one parameter by route
+>
+> - Implement the method configuration of method GET, POST, etc. for the route
+>
+> -  Do dependancy injection
+>
+> - Put PDO in TinyManager
+>
+> - Begin a little wrapper for PDO
+
+----------
 >**TO BE CONTINUED**
 >
 > I will improve and I will complete in this readme As my development!
@@ -287,3 +302,4 @@ class User {
 > ![ ](http://dl-multimedias.net/img/tiny_panda.gif) **Thanks to use it ;)**
 
 [Tiny-Panda]: <https://github.com/dimitrilahaye/Tiny-Panda-MVC>
+
