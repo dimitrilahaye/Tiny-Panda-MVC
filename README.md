@@ -280,6 +280,8 @@ class User {
 ### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-cog"></i>Coming Soon
 > - Update the README with TestController and the last updates
 >
+> - Implement settings.ini (eg. enable debug-mode...)
+>
 > - Provide redirection in Controllers by a method redirect($routeName)
 >
 > - Finish wrapper for TinyRequest
