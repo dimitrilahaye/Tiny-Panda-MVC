@@ -285,6 +285,8 @@ class User {
 >
 > - Make TinyJson provides only public access to serialize($object) and deserialize($json) methods.
 >
+> - Implement other php types object for TinyJson (Date, Time, DateTime, Null, ...)
+>
 > - Provide redirection in Controllers by a method redirect($routeName)
 >
 > - More than one parameter by route
