@@ -278,23 +278,26 @@ class User {
 ```
 ----------
 ### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-cog"></i>Coming Soon
+
 > - Update the README with TestController and the last updates
 >
-> - Implement settings.ini (eg. enable debug-mode...)
+> - Put PDO in TinyManager
+>
+> - Make TinyJson provides only public access to serialize($object) and deserialize($json) methods.
 >
 > - Provide redirection in Controllers by a method redirect($routeName)
->
-> - Finish wrapper for TinyRequest
->
-> - Do wrapper for TinyResponse
 >
 > - More than one parameter by route
 >
 > - Implement the configuration of method GET, POST, etc. for the route
 >
+> - Finish wrapper for TinyRequest
+>
+> - Do wrapper for TinyResponse
+>
 > - Do dependency injection
 >
-> - Put PDO in TinyManager
+> - Implement settings.ini (eg. enable debug-mode...)
 >
 > - Begin a little wrapper for PDO
 
