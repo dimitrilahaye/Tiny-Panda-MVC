@@ -290,9 +290,9 @@ class User {
 >
 > - More than one parameter by route
 >
-> - Implement the method configuration of method GET, POST, etc. for the route
+> - Implement the configuration of method GET, POST, etc. for the route
 >
-> - Do dependancy injection
+> - Do dependency injection
 >
 > - Put PDO in TinyManager
 >
