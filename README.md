@@ -277,7 +277,7 @@ class User {
 } 
 ```
 ----------
-### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-cog"></i> Coming Soon
+### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-cog"></i>Coming Soon
 > - Update the README with TestController and the last updates
 >
 > - Finish wrapper for TinyRequest
