@@ -280,6 +280,8 @@ class User {
 ### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-cog"></i>Coming Soon
 > - Update the README with TestController and the last updates
 >
+> - Provide redirection in Controllers by a method redirect($routeName)
+>
 > - Finish wrapper for TinyRequest
 >
 > - Do wrapper for TinyResponse
@@ -288,18 +290,19 @@ class User {
 >
 > - Implement the method configuration of method GET, POST, etc. for the route
 >
-> -  Do dependancy injection
+> - Do dependancy injection
 >
 > - Put PDO in TinyManager
 >
 > - Begin a little wrapper for PDO
 
 ----------
->**TO BE CONTINUED**
->
-> I will improve and I will complete in this readme As my development!
 
-> ![ ](http://dl-multimedias.net/img/tiny_panda.gif) **Thanks to use it ;)**
+**TO BE CONTINUED**
+
+I will improve and I will complete in this readme As my development!
+
+![ ](http://dl-multimedias.net/img/tiny_panda.gif) **Thanks to use it ;)**
 
 [Tiny-Panda]: <https://github.com/dimitrilahaye/Tiny-Panda-MVC>
 
