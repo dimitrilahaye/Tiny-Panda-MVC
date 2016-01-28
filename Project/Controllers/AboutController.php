@@ -1,31 +1,13 @@
 <?php
 namespace Project\Controllers;
-use Tiny\Controller\Controller;
+use Tiny\Controller\TinyController;
 use Project\Models\User;
-use Tiny\Persistence\TinyPDO;
 use Tiny\Handler\JsonHandler;
 
-class AboutController extends Controller{
-
-    public function afficherAction($id){
-        $pdo = new TinyPDO();
-        $query = $pdo->prepare('select * from user where id ='.$id);
-        $query->execute();
-        $user = $query->fetch();
-        $myUser = new User();
-        $myUser->setName($user['name']);
-        $myUser->setId($user['id']);
-
-        echo JsonHandler::serializeObject('Project\\Models\\User', $myUser);
-
-        $params = array('auteur' => $myUser);
-        return $this->view()->render('About/afficher.php', $params);
-    }
-    public function listerAction(){
-        $pdo = new TinyPDO();
-        $query = $pdo->prepare('select * from user');
-        $query->execute();
-        $result = $query;
+class AboutController extends TinyController{
+    
+    public function jsonAction(){
+        // prepare objects of class User
         $users = [];
         $subUsers = [];
         $u1 = new User();
@@ -43,15 +25,25 @@ class AboutController extends Controller{
         $users[] = $u1;
         $users[] = $u2;
         $users[] = $u3;
-        $jsonArray = JsonHandler::serializeObjectsArray('Project\\Models\\User', $users);
-        $json = JsonHandler::serializeObject('Project\\Models\\User', $u3);
-        $object = JsonHandler::deserializeObject('Project\\Models\\User', $json);
-        echo $object->getId().' '.$object->getName();
-        $objectArray = JsonHandler::deserializeObjectsArray('Project\\Models\\User', $jsonArray);
-        foreach($objectArray as $object) {
-            echo $object->getId() . ' ' . $object->getName().'<br/>';
+        // get the json service into manager
+        $tinyJson = $this->getManager()->get("json");
+        // prepare json and json array
+        $jsonArray = '[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"},{"id":56,"name":"Wade Wilson","user":[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"}]}]';
+        $json = '{"id":56,"name":"Wade Wilson","user":[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"}]}';
+        // get users object array from json array
+        $myObjectsArray = $tinyJson->jsonToObject('Project\\Models\\User', $jsonArray);
+        // get user from json
+        $myObject = $tinyJson->jsonToObject('Project\\Models\\User', $json);
+        // get json array from users array
+        $myJsonArray = $tinyJson->objectToJson('Project\\Models\\User', $users);
+        // get json object from an user
+        $myJson = $tinyJson->objectToJson('Project\\Models\\User', $u3);
+        // echo results
+        foreach($myObjectsArray as $myObject) {
+            echo $myObject->getId() . ' ' . $myObject->getName().'<br/>';
         }
-        $params = array('users' => $users);
-        return $this->view()->render('About/lister.php', $params);
+        echo $myObject->getId() . ' ' . $myObject->getName().'<br/>';
+        echo $myJsonArray."<br/>";
+        echo $myJson."<br/>";
     }
 }
