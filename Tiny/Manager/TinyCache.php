@@ -20,6 +20,24 @@ class TinyCache {
     public function initCacheFiles(){
         $this->createRouteCacheFile();
     }
+    
+    /**
+     * @throws Exception
+     * 
+     * If a routeCache.ini exists, the method destroys it then regenerates it.
+     * It will delete routeCache.ini, then recreate it.
+     */
+    public function regenerateRouteCacheFile(){
+        $tinyDir = new TinyDirectory();
+        $routeCacheFile = $tinyDir->getRouteCacheIni();
+        if(file_exists($routeCacheFile)) {
+            chmod($routeCacheFile, 0777);
+            unlink($routeCacheFile);
+            $this->createRouteCacheFile();
+        } else {
+            throw new Exception('Unable to find or read routeCache.ini...');
+        }
+    }
 
     /**
      * @throws Exception
@@ -31,50 +49,63 @@ class TinyCache {
         $cacheDir = $tinyDir->getCacheDir(__DIR__);
         if(!file_exists($cacheDir)) {
             mkdir($cacheDir);
-            $routeCacheFilePath = $cacheDir . DIRECTORY_SEPARATOR . "routeCache.ini";
-            $this->createCacheFile($routeCacheFilePath);
-            $fileIni = $tinyDir->getConfigFile(__DIR__, 'routing.ini');
-            if ($fileIni != null) {
-                $routingIni = parse_ini_file($fileIni, true);
-                $text = "";
-                $lib = "";
-                $controller = "";
-                $name = "";
-                $action = "";
-                $argument = "";
-                foreach ($routingIni as $key => $value) {
-                    $lib .= $key;
-                    if (isset($value["controller"])) {
-                        $controller .= $value["controller"];
-                    }
-                    if (isset($value["name"])) {
-                        $name .= $value["name"];
-                    }
-                    if (isset($value["action"])) {
-                        $action .= $value["action"];
-                    }
-                    if (isset($value["argument"])) {
-                        $argument .= $value["argument"];
-                    }
-                    $text .= "\n[" . $name . "]\n";
-                    $text .= "controller = " . $controller . "\n";
-                    $text .= "action = " . $action . "\n";
-                    $text .= "route = " . $lib . "\n";
-                    if ($argument != "") {
-                        $text .= "argument = " . $argument . "\n";
-                    }
-                    $lib = "";
-                    $controller = "";
-                    $name = "";
-                    $action = "";
-                    $argument = "";
-                }
-                $this->writeInCacheFile($routeCacheFilePath, $text);
+        }
+        $routeCacheFilePath = $cacheDir . DIRECTORY_SEPARATOR . "routeCache.ini";
+        $this->createCacheFile($routeCacheFilePath);
+        $fileIni = $tinyDir->getConfigFile(__DIR__, 'routing.ini');
+        if ($fileIni != null) {
+            $routingIni = parse_ini_file($fileIni, true);
+            $text = $this->generateRouteCacheContent($routingIni);
+            $this->writeInCacheFile($routeCacheFilePath, $text);
 
-            } else {
-                throw new Exception('Unable to find or read routing.ini...');
+        } else {
+            throw new Exception('Unable to find or read routing.ini...');
+        }
+    }
+    
+    /**
+     * @param type String $routingIni : path to the routing.ini file
+     * 
+     * Will generate the content for the routeCache.ini file
+     */
+    private function generateRouteCacheContent($routingIni){
+        $text = "";
+        foreach ($routingIni as $key => $value) {
+            $lib = $key;
+            List($controller, $name, $action, $argument) = $this->manageRoutingSections($value);
+            $text .= "\n[" . $name . "]\n";
+            $text .= "controller = " . $controller . "\n";
+            $text .= "action = " . $action . "\n";
+            $text .= "route = " . $lib . "\n";
+            if ($argument != "") {
+                $text .= "argument = " . $argument . "\n";
             }
         }
+        return $text;
+    }
+    
+    /**
+     * @param type [] $routingSection : one section in the routeCache.ini
+     * @return type String $text : the content of one section for the routeCache.ini
+     */
+    private function manageRoutingSections($routingSection){
+        $controller = "";
+        $name = "";
+        $action = "";
+        $argument = "";
+        if (isset($routingSection["controller"])) {
+            $controller .= $routingSection["controller"];
+        }
+        if (isset($routingSection["name"])) {
+            $name .= $routingSection["name"];
+        }
+        if (isset($routingSection["action"])) {
+            $action .= $routingSection["action"];
+        }
+        if (isset($routingSection["argument"])) {
+            $argument .= $routingSection["argument"];
+        }
+        return array($controller, $name, $action, $argument);
     }
 
     /**

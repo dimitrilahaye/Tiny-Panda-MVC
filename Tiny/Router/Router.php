@@ -59,26 +59,26 @@ class Router {
      * Get and parse routing.ini file to find the controller, method and argument(s)
      */
     private function routing($route, TinyRequest $request){
-            $tinyDir = new TinyDirectory();
-            $fileIni = $tinyDir->getConfigFile(__DIR__, 'routing.ini');
-            $arg = null;
-            if($fileIni != null){
-                $routingIni = parse_ini_file($fileIni, true);
-                List($arg, $route) = $this->tinyRoute->cleanRoute($route, $routingIni);
-                $route = $route == "/" ? "." : $route;
-                if(isset($routingIni[$route])) {
-                    $controller = $routingIni[$route]['controller'];
-                    $controllerClass = $this->tinyRoute->generateController($controller);
-                    if ($controllerClass == null) {
-                        throw new Exception('Class ' . $controller . ' doesn\'t seem to exist...');
-                    }
-                    $action = $routingIni[$route]['action'];
-                    $this->tinyRoute->generateAndLaunchAction($controllerClass, $action, $arg, $request);
-                } else {
-                    throw new Exception('Route doesn\'t configure');
+        $tinyDir = new TinyDirectory();
+        $fileIni = $tinyDir->getConfigFile(__DIR__, 'routing.ini');
+        $arg = null;
+        if($fileIni != null){
+            $routingIni = parse_ini_file($fileIni, true);
+            List($arg, $route) = $this->tinyRoute->cleanRoute($route, $routingIni);
+            $route = $route == "/" ? "." : $route;
+            if(isset($routingIni[$route])) {
+                $controller = $routingIni[$route]['controller'];
+                $controllerClass = $this->tinyRoute->generateController($controller);
+                if ($controllerClass == null) {
+                    throw new Exception('Class ' . $controller . ' doesn\'t seem to exist...');
                 }
+                $action = $routingIni[$route]['action'];
+                $this->tinyRoute->generateAndLaunchAction($controllerClass, $action, $arg, $request);
             } else {
-                throw new Exception('Unable to find or read routing.ini...');
+                throw new Exception('Route doesn\'t configure');
             }
+        } else {
+            throw new Exception('Unable to find or read routing.ini...');
         }
+    }
 }

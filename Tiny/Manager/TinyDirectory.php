@@ -55,6 +55,15 @@ class TinyDirectory {
         $dir = implode(DIRECTORY_SEPARATOR, $dir);
         return $dir.DIRECTORY_SEPARATOR.'Cache';
     }
+    
+    /**
+     * @return String path to the routeCache.ini
+     *
+     * Returns path to the routeCache.ini files
+     */
+    public function getRouteCacheIni(){
+        return $this->getCacheDir(__DIR__).DIRECTORY_SEPARATOR."routeCache.ini";
+    }
 
     /**
      * @param $directory

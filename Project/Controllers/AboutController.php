@@ -45,5 +45,12 @@ class AboutController extends TinyController{
         echo $myObject->getId() . ' ' . $myObject->getName().'<br/>';
         echo $myJsonArray."<br/>";
         echo $myJson."<br/>";
+        $params = array("user" => "toto");
+        return $this->view()->redirect("about redirect", $params, 12);
+    }
+    
+    public function redirectAction($request, $id){
+        $params = array("user" => "toto");
+        echo $id;
     }
 }

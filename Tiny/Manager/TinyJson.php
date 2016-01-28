@@ -81,8 +81,7 @@ class TinyJson {
      * @return type String $propertyValue : value to put in the Objects array
      * we want to return
      * 
-     * Get an object and property to return the value of this property
-     * from this object
+     * Get an object and property to return the value of this property from this object
      */
     private function getPropertyValueFromObject($object, $classProperty){
         $propertyValue = null;
