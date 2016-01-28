@@ -18,16 +18,45 @@ class TinyJson {
         static::$instance = static::$instance == null ? new TinyJson() : static::$instance;
         return static::$instance;
     }
+    
+    /**
+     * @param type String $classNamespace : the class name with namespace
+     * @param type Json $json : the json to transform in object
+     * @return type Object : the object we want to return
+     * 
+     * Returns an object from a json and the class's namespace
+     * of the object we want to return
+     */
+    public function jsonToObject($classNamespace, $json){
+        if(is_array(json_decode($json))){
+            return $this->deserializeJsonArray($classNamespace, $json);
+        }
+        return $this->deserializeJson($classNamespace, $json);
+    }
+    
+    /**
+     * @param type String $classNamespace : the class name with namespace
+     * @param type Object $object : the object to transform into json
+     * @return type Json : a json object
+     * 
+     * Returns a json from an object and his class's namespace
+     */
+    public function objectToJson($classNamespace, $object){
+        if(is_array($object)){
+            return $this->serializeObjectsArray($classNamespace, $object);
+        }
+        return $this->serializeObject($classNamespace, $object);
+    }
 
     /**
-     * @param $classNamespace
-     * @param $object
+     * @param String $classNamespace : the class name with namespace
+     * @param $object : the object we want to transform into json
      * @throws \ErrorException
      * @return string : json object from $classNamespace and an $object
      *
      * Returns a json array from an object and his class's namespace
      */
-    public function serializeObject($classNamespace, $object){
+    private function serializeObject($classNamespace, $object){
         if($this->isClassExists($classNamespace)) {
             $class = new \ReflectionClass($classNamespace);
             $classProperties = $class->getProperties();
@@ -36,6 +65,7 @@ class TinyJson {
                 $classProperty->setAccessible(true);
                 $propertyName = $classProperty->getName();
                 $propertyValue = null;
+                //englober le if dans une méthode
                 if(is_object($classProperty->getValue($object))) {
                     $subClass = new \ReflectionClass($classProperty->getValue($object));
                     $propertyValue = json_decode($this->serializeObject($subClass->getName(), $classProperty->getValue($object)));
@@ -56,13 +86,13 @@ class TinyJson {
         throw new \ErrorException("The class ".$classNamespace." doesn't exist");
     }
     /**
-     * @param $classNamespace
-     * @param $objects
-     * @return string : json array from $classNamespace and an $array of objects
+     * @param String $classNamespace : the class name with namespace
+     * @param [] $objects : the array of objects we want to transform into json array
+     * @return String : json array from $classNamespace and an $array of objects
      *
      * Returns a json array constructed with the class's namespace and an array of objects
      */
-    public function serializeObjectsArray($classNamespace, $objects){
+    private function serializeObjectsArray($classNamespace, $objects){
         $jsonArray = [];
         foreach($objects as $object) {
             $json = $this->serializeObject($classNamespace, $object);
@@ -72,14 +102,14 @@ class TinyJson {
     }
 
     /**
-     * @param $classNamespace
-     * @param $json
+     * @param type String $classNamespace : the class name with namespace
+     * @param type Json $json : the json to transform in object
      * @return $object : $object from $classNamespace and a $json
      * @throws \ErrorException
      *
      * Returns an object constructed with the class's namespace and a json object
      */
-    public function deserializeObject($classNamespace, $json){
+    private function deserializeJson($classNamespace, $json){
         $object = null;
         if($this->isClassExists($classNamespace)) {
             $object = new $classNamespace();
@@ -99,25 +129,25 @@ class TinyJson {
     }
 
     /**
-     * @param $classNamespace
-     * @param $jsonArray
-     * @return array : $array of object from $classNamespace and a $jsonArray
+     * @param type String $classNamespace : the class name with namespace
+     * @param type JsonArray $jsonArray : the json array to transform in objects array
+     * @return array [] : $array of object from $classNamespace and a $jsonArray
      * @throws \ErrorException
      *
      * Returns an array of objects constructed with the class's namespace and a json array
      */
-    public function deserializeObjectsArray($classNamespace, $jsonArray){
+    private function deserializeJsonArray($classNamespace, $jsonArray){
         $objects = [];
         foreach(json_decode($jsonArray) as $json) {
-            $object = $this->deserializeObject($classNamespace, json_encode($json));
+            $object = $this->deserializeJson($classNamespace, json_encode($json));
             $objects[] = $object;
         }
         return $objects;
     }
 
     /**
-     * @param $classNamespace
-     * @return bool
+     * @param String $classNamespace : class name we want to evaluate
+     * @return bool : true if class exists, false if not
      *
      * Check if the specified class exists
      */
