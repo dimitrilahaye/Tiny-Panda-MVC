@@ -2,7 +2,6 @@
 namespace Project\Controllers;
 use Tiny\Controller\TinyController;
 use Project\Models\User;
-use Tiny\Handler\JsonHandler;
 
 class AboutController extends TinyController{
     
