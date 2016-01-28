@@ -6,6 +6,8 @@
 #netbeans
 nbproject/
 
+.htaccess
+
 #OS_X
 .DS_Store
 /nbproject/private/
