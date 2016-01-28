@@ -281,7 +281,7 @@ class User {
 
 > - Update the README with TestController and the last updates
 >
-> - Provide redirection in Controllers by a method redirect($routeName)
+> - Implement params into view()->redirect() method inside Controllers.
 >
 > - More than one parameter by route
 >
@@ -297,8 +297,6 @@ class User {
 >
 > - Begin a little wrapper for PDO
 >
-> - Rewrite routeCache.ini when routing.ini is updated
->
 > - Implement other php types object for TinyJson (Date, Time, DateTime, Null, ...)
 
 ----------
@@ -310,4 +308,3 @@ I will improve and I will complete in this readme As my development!
 ![ ](http://dl-multimedias.net/img/tiny_panda.gif) **Thanks to use it ;)**
 
 [Tiny-Panda]: <https://github.com/dimitrilahaye/Tiny-Panda-MVC>
-
