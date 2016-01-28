@@ -281,8 +281,6 @@ class User {
 
 > - Update the README with TestController and the last updates
 >
-> - Implement other php types object for TinyJson (Date, Time, DateTime, Null, ...)
->
 > - Provide redirection in Controllers by a method redirect($routeName)
 >
 > - More than one parameter by route
@@ -300,6 +298,8 @@ class User {
 > - Begin a little wrapper for PDO
 >
 > - Rewrite routeCache.ini when routing.ini is updated
+>
+> - Implement other php types object for TinyJson (Date, Time, DateTime, Null, ...)
 
 ----------
 
