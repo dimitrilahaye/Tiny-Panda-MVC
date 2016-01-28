@@ -64,19 +64,7 @@ class TinyJson {
             foreach ($classProperties as $classProperty) {
                 $classProperty->setAccessible(true);
                 $propertyName = $classProperty->getName();
-                $propertyValue = null;
-                //englober le if dans une méthode
-                if(is_object($classProperty->getValue($object))) {
-                    $subClass = new \ReflectionClass($classProperty->getValue($object));
-                    $propertyValue = json_decode($this->serializeObject($subClass->getName(), $classProperty->getValue($object)));
-                }
-                else if(is_array($classProperty->getValue($object))) {
-                    $subClass = new \ReflectionClass($classProperty->getValue($object)[0]);
-                    $propertyValue = json_decode($this->serializeObjectsArray($subClass->getName(), $classProperty->getValue($object)));
-                }
-                else {
-                    $propertyValue = $classProperty->getValue($object);
-                }
+                $propertyValue = $this->getPropertyValueFromObject($object, $classProperty);
                 if($propertyValue != null){
                     $objects += array($propertyName => $propertyValue);
                 }
@@ -85,6 +73,33 @@ class TinyJson {
         }
         throw new \ErrorException("The class ".$classNamespace." doesn't exist");
     }
+    
+    /**
+     * 
+     * @param type Object $object : Object to evaluate
+     * @param type ReflectionProperty $classProperty : property from $object
+     * @return type String $propertyValue : value to put in the Objects array
+     * we want to return
+     * 
+     * Get an object and property to return the value of this property
+     * from this object
+     */
+    private function getPropertyValueFromObject($object, $classProperty){
+        $propertyValue = null;
+        if(is_object($classProperty->getValue($object))) {
+            $subClass = new \ReflectionClass($classProperty->getValue($object));
+            $propertyValue = json_decode($this->serializeObject($subClass->getName(), $classProperty->getValue($object)));
+        }
+        else if(is_array($classProperty->getValue($object))) {
+            $subClass = new \ReflectionClass($classProperty->getValue($object)[0]);
+            $propertyValue = json_decode($this->serializeObjectsArray($subClass->getName(), $classProperty->getValue($object)));
+        }
+        else {
+            $propertyValue = $classProperty->getValue($object);
+        }
+        return $propertyValue;
+    }
+    
     /**
      * @param String $classNamespace : the class name with namespace
      * @param [] $objects : the array of objects we want to transform into json array
