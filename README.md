@@ -281,10 +281,6 @@ class User {
 
 > - Update the README with TestController and the last updates
 >
-> - Put PDO in TinyManager
->
-> - Make TinyJson provides only public access to serialize($object) and deserialize($json) methods.
->
 > - Implement other php types object for TinyJson (Date, Time, DateTime, Null, ...)
 >
 > - Provide redirection in Controllers by a method redirect($routeName)
@@ -302,6 +298,8 @@ class User {
 > - Implement settings.ini (eg. enable debug-mode...)
 >
 > - Begin a little wrapper for PDO
+>
+> - Rewrite routeCache.ini when routing.ini is updated
 
 ----------
 
