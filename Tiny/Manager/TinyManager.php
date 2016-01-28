@@ -33,7 +33,8 @@ class TinyManager {
     private function initServicesArray(){
         $this->services = array(
             "json" => TinyJson::getInstance(),
-            "request" => TinyRequest::getInstance()
+            "request" => TinyRequest::getInstance(),
+            "pdo" => new TinyPDO()
         );
     }
 

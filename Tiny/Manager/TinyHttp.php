@@ -67,7 +67,7 @@ class TinyHttp {
 
     public function createRequest(){
         $request = $this->manager->get("request");
-        $request->setRawDatas(http_get_request_body());
+        $request->setRawDatas(file_get_contents('php://input'));
         if(isset($_SERVER['REDIRECT_STATUS'])) {
             $request->setRedirectStatus($_SERVER['REDIRECT_STATUS']);
         }
