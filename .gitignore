@@ -3,5 +3,12 @@
 *.iml
 *.iws
 
+#netbeans
+nbproject/
+
 #OS_X
 .DS_Store
+/nbproject/private/
+
+#project
+Tiny/Cache/
