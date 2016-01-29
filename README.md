@@ -298,6 +298,8 @@ class User {
 > - Begin a little wrapper for PDO
 >
 > - Implement other php types object for TinyJson (Date, Time, DateTime, Null, ...)
+>
+> - Implement cookie and session wrappers
 
 ----------
 
