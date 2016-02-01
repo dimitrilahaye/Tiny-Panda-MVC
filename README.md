@@ -281,8 +281,6 @@ class User {
 
 > - Update the README with TestController and the last updates
 >
-> - Implement params into view()->redirect() method inside Controllers.
->
 > - More than one parameter by route
 >
 > - Implement the configuration of method GET, POST, etc. for the route
