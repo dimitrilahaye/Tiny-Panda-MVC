@@ -2,6 +2,7 @@
 namespace Tiny\Tiny;
 
 use Tiny\Manager\TinyCache;
+use Tiny\Manager\TinySettings;
 use Tiny\Manager\TinyHttp;
 use Tiny\Router\Router;
 
@@ -26,6 +27,8 @@ class Tiny {
         //init the cache files
         $tinyCache = new TinyCache();
         $tinyCache->initCacheFiles();
+        $tinySettings = new TinySettings();
+        $tinySettings->initSettings();
         //launch the controller and the associated method
         $tinyRouter = new Router();
         $tinyRouter->init($_SERVER, $request);
