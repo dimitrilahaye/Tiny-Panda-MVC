@@ -76,15 +76,26 @@ RewriteBase /TinyProject/
 ##### <i class="icon-cog"></i> Routing configuration
 Modify *`~/Tiny/Configuration/routing.init`*
 ```ini
-;route definition
-[about/lister]
-;controller namespace for about/lister route
+;;home route's definition : http://mysite.com/
+[.]
+;;home route's controller
 controller = \Project\Controllers\AboutController
-;method name for controller
+;;home route's action in this controller
+action = totoAction
+;;home route's name
+name = root
+
+;;route's definition : http://mysite.com/about/lister
+[about/lister]
+controller = \Project\Controllers\AboutController
 method = listerAction
+name = about lister
+
+;;route's definition with one param : http://mysite.com/about/afficher/2
 [about/afficher]
 controller = \Project\Controllers\AboutController
 method = afficherAction
+name = about afficher
 ;variable argument for about/afficher route
 param = id
 ;... other routes
@@ -117,7 +128,7 @@ password = root
 ```php
 <?php
 namespace Project\Controllers;
-use Tiny\Controller\Controller;
+use Tiny\Controller\TinyController;
 //Controller class for [about/afficher] route (in configuration example)
 class AboutController extends Controller{
 //...
@@ -133,11 +144,10 @@ public function afficherAction($id){
 }
 ```
 ----------
-##### <i class="icon-pencil"></i> Call PDO in Controller method
+##### <i class="icon-pencil"></i> Call PDO in Controller methods
 ```php
-use Tiny\Persistence\TinyPDO;
 //...
-$pdo = new TinyPDO();
+$pdo = $this->getManager()->get("pdo");
 $query = $pdo->prepare('select * from user where id ='.$id);
 $query->execute();
 $user = $query->fetch();
@@ -147,8 +157,9 @@ $user = $query->fetch();
 ##### <i class="icon-pencil"></i> Serializing and Deserializing
 
 ```php
-use Tiny\Handler\JsonHandler;
 //...
+
+// prepare objects of class User
 $users = [];
 $subUsers = [];
 $u1 = new User();
@@ -166,63 +177,83 @@ $u3->setUser($subUsers);
 $users[] = $u1;
 $users[] = $u2;
 $users[] = $u3;
-$jsonArray = JsonHandler::serializeObjectsArray('Project\\Models\\User', $users);
-echo $jsonArray;
-/*[
-   {
-      "id":12,
-      "name":"John Doe"
-   },
-   {
-      "id":36,
-      "name":"Jane Doe"
-   },
-   {
-      "id":56,
-      "name":"Wade Wilson",
-      "user":[
-         {
-            "id":12,
-            "name":"John Doe"
-         },
-         {
-            "id":36,
-            "name":"Jane Doe"
-         }
-      ]
-   }
-]*/
-$json = JsonHandler::serializeObject('Project\\Models\\User', $u3);
-echo $json;
-/*{
-   "id":56,
-   "name":"Wade Wilson",
-   "user":[
-      {
-         "id":12,
-         "name":"John Doe"
-      },
-      {
-         "id":36,
-         "name":"Jane Doe"
-      }
-   ]
-}*/
-$object = JsonHandler::deserializeObject('Project\\Models\\User', $json);
-echo $object->getId().' '.$object->getName();
-/*
-56 Wade Wilson
-*/
-$objectArray = JsonHandler::deserializeObjectsArray('Project\\Models\\User', $jsonArray);
-foreach($objectArray as $object) {
-    echo $object->getId() . ' ' . $object->getName().'<br/>';
+
+// get the json service into manager
+$tinyJson = $this->getManager()->get("json");
+
+// prepare json and json array
+$jsonArray = '[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"},{"id":56,"name":"Wade Wilson","user":[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"}]}]';
+$json = '{"id":56,"name":"Wade Wilson","user":[{"id":12,"name":"John Doe"},{"id":36,"name":"Jane Doe"}]}';
+
+// get users object array from json array
+$myObjectsArray = $tinyJson->jsonToObject('Project\\Models\\User', $jsonArray);
+// get user from json
+$myObject = $tinyJson->jsonToObject('Project\\Models\\User', $json);
+// get json array from users array
+$myJsonArray = $tinyJson->objectToJson('Project\\Models\\User', $users);
+// get json object from an user
+$myJson = $tinyJson->objectToJson('Project\\Models\\User', $u3);
+// echo results
+//...
+foreach($myObjectsArray as $myObject) {
+    echo $myObject->getId() . ' ' . $myObject->getName().'<br/>';
 }
 /*
 12 John Doe
 36 Jane Doe
 56 Wade Wilson
 */
-//...
+
+echo $myObject->getId() . ' ' . $myObject->getName().'<br/>';
+/*
+56 Wade Wilson
+*/
+
+echo $myJsonArray."<br/>";
+/*
+[  
+   {  
+      "id":12,
+      "name":"John Doe"
+   },
+   {  
+      "id":36,
+      "name":"Jane Doe"
+   },
+   {  
+      "id":56,
+      "name":"Wade Wilson",
+      "user":[  
+         {  
+            "id":12,
+            "name":"John Doe"
+         },
+         {  
+            "id":36,
+            "name":"Jane Doe"
+         }
+      ]
+   }
+]
+*/
+
+echo $myJson."<br/>";
+/*
+{  
+   "id":56,
+   "name":"Wade Wilson",
+   "user":[  
+      {  
+         "id":12,
+         "name":"John Doe"
+      },
+      {  
+         "id":36,
+         "name":"Jane Doe"
+      }
+   ]
+}
+*/
 ```
 
 ----------
