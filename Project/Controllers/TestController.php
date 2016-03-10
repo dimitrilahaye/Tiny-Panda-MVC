@@ -53,6 +53,5 @@ class TestController extends TinyController{
     
     public function redirectAction($request, $id){
         echo $id;
-        $params = array("user" => "toto");
     }
 }
