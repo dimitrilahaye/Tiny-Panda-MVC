@@ -122,6 +122,8 @@ Modify *`~/Tiny/Configuration/settings.init`*
 [debug]
 ;;put 'enable' to true if you want to see WARNINGs in browser
 enable = true
+
+;;settings to be continued ;)
 ```
 ----------
 
