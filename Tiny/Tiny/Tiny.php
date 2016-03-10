@@ -14,9 +14,13 @@ use Tiny\Router\Router;
  */
 class Tiny {
 
+    public function __construct(){
+        $this->init();
+    }
+
     /**
      *
-     * Launches the autoloader, generates the cache files then launches the router
+     * Launches the autoloader, generates the cache files, checks settings then launches the router
      */
     public function init(){
         //autoloader
@@ -27,6 +31,7 @@ class Tiny {
         //init the cache files
         $tinyCache = new TinyCache();
         $tinyCache->initCacheFiles();
+        //check and init settings
         $tinySettings = new TinySettings();
         $tinySettings->initSettings();
         //launch the controller and the associated method
