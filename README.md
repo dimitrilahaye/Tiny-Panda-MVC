@@ -22,6 +22,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 	- [Call PDO in Controller method](#-call-pdo-in-controller-method)
 	- [Serializing and Deserializing](#-serializing-and-deserializing)
 	- [Return View with parameters](#-return-view-with-parameters)
+  - [Redirect to another action/view with params](#-Redirect-to-another-action/view-with-params)
 	- [Use views template](#-use-views-template)
 	- [Create a Model](#-create-a-model)
 - [Coming Soon](#-coming-soon)
@@ -262,6 +263,13 @@ echo $myJson."<br/>";
 $params = array('user' => $myUser);
 return $this->view()->render('About/afficher.php', $params);
 //in view, you'll be able to use $user variable !
+```
+----------
+##### <i class="icon-pencil"></i> Redirect to another action/view with params
+```php
+$params = array("user" => "toto");
+$this->view()->redirect('about redirect', $params, 12);
+//in action from the route named 'about redirect' you will be able to manage $id (12)
 ```
 ----------
 #####  <i class="icon-file"></i> Use views template
