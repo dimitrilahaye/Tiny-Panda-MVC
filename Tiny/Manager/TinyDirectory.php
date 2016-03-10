@@ -64,6 +64,10 @@ class TinyDirectory {
     public function getRouteCacheIni(){
         return $this->getCacheDir(__DIR__).DIRECTORY_SEPARATOR."routeCache.ini";
     }
+    
+    public function getSettingsIni(){
+        return $this->getConfigDir(__DIR__).DIRECTORY_SEPARATOR."settings.ini";
+    }
 
     /**
      * @param $directory
