@@ -16,6 +16,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 - [Project configuration](#--project-configuration)
 	- [Routing configuration](#-routing-configuration)
 	- [SQL DataBase configuration](#-sql-database-configuration)
+  - [TinyPanda MVC Settings/options configuration](#-tinypanda-mvc-settingsoptions-configuration)
 - [Project folder](#--project-folder)
 	- [Create a Controller](#-create-a-controller)
 	- [Create a method related to a route](#-create-a-method-related-to-a-route)
@@ -115,6 +116,15 @@ username = root
 password = root
 ```
 ----------
+##### <i class="icon-cog"></i> TinyPanda MVC Settings/options configuration
+Modify *`~/Tiny/Configuration/settings.init`*
+```ini
+[debug]
+;;put 'enable' to true if you want to see WARNINGs in browser
+enable = true
+```
+----------
+
 ### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-folder-open"></i> Project folder
 > **IMPORTANT :**
 >
