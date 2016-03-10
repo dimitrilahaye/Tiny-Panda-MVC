@@ -4,6 +4,14 @@ use Tiny\Controller\TinyController;
 use Project\Models\User;
 
 class AboutController extends TinyController{
+
+    public function totoAction(){
+        $user = new User();
+        $user->setName('John Doe 5');
+        $tinyPdo = $this->getManager()->get("pdo");
+        $stmt = $tinyPdo->prepare("INSERT INTO user (name) VALUES (?)");
+        $stmt->execute(array($user->getName()));
+    }
     
     public function jsonAction(){
         // prepare objects of class User
@@ -44,8 +52,6 @@ class AboutController extends TinyController{
         echo $myObject->getId() . ' ' . $myObject->getName().'<br/>';
         echo $myJsonArray."<br/>";
         echo $myJson."<br/>";
-        $params = array("user" => "toto");
-        return $this->view()->redirect("about redirect", $params, 12);
     }
     
     public function redirectAction($request, $id){

@@ -99,7 +99,6 @@ class TinyView {
      * @return type String : the url for the redirection
      */
     private function getRedirectionURL($routeURL){
-        return $_SERVER["REQUEST_SCHEME"]."://".$_SERVER["HTTP_HOST"]
-                .$_SERVER["CONTEXT_PREFIX"]."/".$routeURL;
+        return "http".(($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://").$_SERVER["HTTP_HOST"]."/".$routeURL;
     }
 }
