@@ -1,8 +1,8 @@
 <html>
 <head>
-    <title><?= $auteur->getName() ?></title>
+    <title><?= $user ?></title>
 </head>
 <body>
-<h1><?= $auteur->getName() ?></h1>
+<h1><?= $user ?></h1>
 </body>
 </html>

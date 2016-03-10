@@ -29,6 +29,48 @@ class TinyRoute {
         return $url == "" ? "/" : $url;
     }
 
+    public function findMatchingRoute($route, $fileIni){
+        $route = explode('/', $route);
+        $size = sizeof($route);
+        $args = [];
+        $matchingRoutes = [];
+        $matchingRoute = "";
+        $_matchingRoutesReturn = false;
+        $_matchingRouteReturn = false;
+        $fileIniKeys = array_keys($fileIni);
+        foreach($fileIniKeys as $key) { 
+            $keyAsArray = explode('/', $key);
+            if(sizeof($keyAsArray) == $size){
+                for ($i=0; $i < (sizeof($keyAsArray)-1) ; $i++) {
+                    if($i%2 == 0){
+                        if($keyAsArray[$i] == $route[$i]){
+                            $_matchingRoutesReturn = true;
+                        }
+                    }
+                }
+                if($_matchingRoutesReturn){
+                    $matchingRoutes[] = $key;
+                }
+            }
+        }
+        foreach ($matchingRoutes as $key) {
+            $matchingRouteAsArray = explode("/", $key);
+            for ($i=0; $i < (sizeof($matchingRouteAsArray)-1); $i++) { 
+                if(!$i&1){
+                    if($matchingRouteAsArray[$i] == $route[$i]){
+                        $_matchingRouteReturn = true;
+                    } else {
+                        $_matchingRouteReturn = false;
+                    }
+                }
+            }
+            if($_matchingRouteReturn){
+                $matchingRoute = $key;
+            }
+        }
+        return $matchingRoute;
+    }
+
     /**
      * @param $fileIni
      * @param $route
@@ -37,17 +79,16 @@ class TinyRoute {
      * Returns true if route has args
      */
     public function isArgs($fileIni, $route){
+        $route = $this->findMatchingRoute($route, $fileIni);
+        echo "isArgs : ".$route;
         if($route == "/"){
             return false;
         } else if(!isset($fileIni[$route])){
-            $route = explode('/', $route);
-            array_pop($route);
-            $route = implode('/',$route);
-            if(isset($fileIni[$route])) {
+            return false;
+        } else if(isset($fileIni[$route])) {
+            if(isset($fileIni[$route]["argument"])){
                 return true;
             }
-        } else {
-            return false;
         }
     }
 
@@ -76,7 +117,19 @@ class TinyRoute {
      */
     public function generateArg($route, $fileIni){
         $route = explode('/', $route);
+        // ici on considère que l'arg est à la fin de la route
+        // on considère qu'il n'y a qu'un seul argument du coup
         $arg = $route[sizeof($route)-1];
+        // mais il peut y en avoir plusieurs :
+        // http://monsite.com/user/12/job/23
+        // in router.ini
+        // [user/::/job/::]
+        // argument[] = id1
+        // argument[] = id2
+        /*
+            if()        
+            $args =  $fileIni[$route]['argument'];
+        */
         unset($route[sizeof($route)-1]);
         $route = implode('/', $route);
         $param = $fileIni[$route]['argument'];
@@ -86,14 +139,32 @@ class TinyRoute {
 
     /**
      * @param $route
+     * @param $fileIni
      * @return String
      *
-     * Returns nice route without argument (eg. my/route/12)
+     * Returns nice route (eg. my/route/12 becomes my/route/$arg)
      */
-    public function generateRouteArgsLess($route){
+    public function generateNiceRoute($route, $fileIni){
+        $matchingRoute = $this->findMatchingRoute($route, $fileIni);
+        $matchingRouteAsArray = explode("/", $matchingRoute);
         $route = explode('/', $route);
-        array_pop($route);
-        return implode('/',$route);
+        $idx_args = 0;
+        $returnedRoute = "";
+        $args = $fileIni[$matchingRoute]['argument'];
+
+        for ($i=0; $i < sizeof($matchingRouteAsArray); $i++) {
+            if($i%2 == 1){
+                $returnedRoute .= "$".$args[$idx_args]."/";
+                $idx_args++;
+            } else if($i%2 == 0){
+                $returnedRoute .= $matchingRouteAsArray[$i]."/";
+            }
+        }
+        $returnedRoute = explode("/", $returnedRoute);
+        array_pop($returnedRoute);
+        $returnedRoute = implode("/", $returnedRoute);
+        echo $returnedRoute;
+        return $returnedRoute;
     }
 
     /**
@@ -153,12 +224,17 @@ class TinyRoute {
     public function cleanRoute($route, $routing_init) {
         $arg = null;
         if (self::isArgs($routing_init, $route)) {
-            $arg = $this->generateArg($route, $routing_init);
-            $route = $this->generateRouteArgsLess($route);
+            echo "<br/>this<br/>";
+            // retourner les arguments de la route !!!
+            // $arg = $this->generateArg($route, $routing_init);
+            $route = $this->generateNiceRoute($route, $routing_init);
             return array($arg, $route);
         } else if ($this->isQuery($route)) {
+            echo "<br/>query<br/>";
             $route = $this->generateRouteQueryLess($route);
             return array($arg, $route);
-        }return array($arg, $route);
+        }
+        echo "<br/>nothing<br/>";
+        return array($arg, $route);
     }
 } 
