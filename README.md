@@ -291,8 +291,6 @@ class User {
 >
 > - Do dependency injection
 >
-> - Implement settings.ini (eg. enable debug-mode...)
->
 > - Begin a little wrapper for PDO
 >
 > - Implement other php types object for TinyJson (Date, Time, DateTime, Null, ...)
