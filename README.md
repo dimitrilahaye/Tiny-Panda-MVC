@@ -22,7 +22,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 	- [Call PDO in Controller method](#-call-pdo-in-controller-method)
 	- [Serializing and Deserializing](#-serializing-and-deserializing)
 	- [Return View with parameters](#-return-view-with-parameters)
-  - [Redirect to another action/view with params](#-redirect-to-another-actionview-with-params)
+  	- [Redirect to another action/view with params](#-redirect-to-another-actionview-with-params)
 	- [Use views template](#-use-views-template)
 	- [Create a Model](#-create-a-model)
 - [Coming Soon](#-coming-soon)
