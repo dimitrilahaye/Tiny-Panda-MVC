@@ -75,21 +75,34 @@ class TinyView {
         $routeCacheFile = $tinyDir->getRouteCacheIni();
         if($routeCacheFile != null){
             $routeCacheIni = parse_ini_file($routeCacheFile, true);
-            if(isset($routeCacheIni[$routeName])){
-                $redirectionURL = $this->getRedirectionURL($routeCacheIni[$routeName]["route"]);
-                if($args != null){
-                    $redirectionURL .= "/".$args;
-                }
-                if($params != null){
-                    //TODO : construct header with params in it !!
-                    //And manage params in Router.php
-                }
-                header("Location: ".$redirectionURL);
-            } else {
-                throw new Exception("Route name : ". $routeName. " doesn't exist !");
-            }
+            $this->generateRedirection($routeCacheIni, $routeName, $args, $params);
         } else {
             throw new Exception('Unable to find or read routeCache.ini...');
+        }
+    }
+    
+    /**
+     * @param type String $routeCacheIni : parsed routeCache.ini
+     * @param type String $routeName : the name of the route to the redirection
+     * @param type String $args : arguments for the redirection, can be null
+     * @param type String $params : params for the redirection, can be null
+     * @throws Exception
+     * 
+     * Provides the redirection for the $routeName find in the routeCache.ini
+     */
+    private function generateRedirection($routeCacheIni, $routeName, $args, $params){
+        if(isset($routeCacheIni[$routeName])){
+            $redirectionURL = $this->getRedirectionURL($routeCacheIni[$routeName]["route"]);
+            if($args != null){
+                $redirectionURL .= "/".$args;
+            }
+            if($params != null){
+                //TODO : construct header with params in it !!
+                //And manage params in Router.php
+            }
+            header("Location: ".$redirectionURL);
+        } else {
+            throw new Exception("Route name : ". $routeName. " doesn't exist !");
         }
     }
     
