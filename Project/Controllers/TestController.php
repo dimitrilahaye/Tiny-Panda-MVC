@@ -7,7 +7,7 @@ class TestController extends TinyController{
 
     public function homeAction(){
         $params = array("user" => "toto");
-        $this->view()->redirect("test redirect", $params, 12);
+        $this->view()->redirect("test redirect1", array("id1" => 1223, "id2" => "Dimitri"), $params);
     }
     
     public function jsonAction(){
@@ -51,7 +51,7 @@ class TestController extends TinyController{
         echo $myJson."<br/>";
     }
     
-    public function redirectAction($request, $id){
-        echo $id;
+    public function redirectAction($request){
+        echo $request->getArgument("id1");
     }
 }

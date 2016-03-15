@@ -61,10 +61,10 @@ class Router {
     private function routing($route, TinyRequest $request){
         $tinyDir = new TinyDirectory();
         $fileIni = $tinyDir->getConfigFile(__DIR__, 'routing.ini');
-        $arg = null;
+        $args = null;
         if($fileIni != null){
             $routingIni = parse_ini_file($fileIni, true);
-            List($arg, $route) = $this->tinyRoute->cleanRoute($route, $routingIni);
+            List($args, $route) = $this->tinyRoute->cleanRoute($route, $routingIni);
             $route = $route == "/" ? "." : $route;
             if(isset($routingIni[$route])) {
                 $controller = $routingIni[$route]['controller'];
@@ -73,7 +73,7 @@ class Router {
                     throw new Exception('Class ' . $controller . ' doesn\'t seem to exist...');
                 }
                 $action = $routingIni[$route]['action'];
-                $this->tinyRoute->generateAndLaunchAction($controllerClass, $action, $arg, $request);
+                $this->tinyRoute->generateAndLaunchAction($controllerClass, $action, $args, $request);
             } else {
                 throw new Exception('Route doesn\'t configure');
             }

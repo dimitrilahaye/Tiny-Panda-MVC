@@ -72,13 +72,15 @@ class TinyCache {
         $text = "";
         foreach ($routingIni as $key => $value) {
             $lib = $key;
-            List($controller, $name, $action, $argument) = $this->manageRoutingSections($value);
+            List($controller, $name, $action, $arguments) = $this->manageRoutingSections($value);
             $text .= "\n[" . $name . "]\n";
             $text .= "controller = " . $controller . "\n";
             $text .= "action = " . $action . "\n";
             $text .= "route = " . $lib . "\n";
-            if ($argument != "") {
-                $text .= "argument = " . $argument . "\n";
+            if (sizeof($arguments) > 0) {
+                foreach ($arguments as $arg) {
+                    $text .= "argument[] = " . $arg . "\n";
+                }
             }
         }
         return $text;
@@ -92,7 +94,7 @@ class TinyCache {
         $controller = "";
         $name = "";
         $action = "";
-        $argument = "";
+        $arguments = [];
         if (isset($routingSection["controller"])) {
             $controller .= $routingSection["controller"];
         }
@@ -103,9 +105,11 @@ class TinyCache {
             $action .= $routingSection["action"];
         }
         if (isset($routingSection["argument"])) {
-            $argument .= $routingSection["argument"];
+            foreach ($routingSection["argument"] as $arg) {
+                $arguments[] = $arg;
+            }
         }
-        return array($controller, $name, $action, $argument);
+        return array($controller, $name, $action, $arguments);
     }
 
     /**

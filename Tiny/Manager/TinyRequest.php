@@ -11,12 +11,25 @@ namespace Tiny\Manager;
 class TinyRequest {
 
     private static $instance;
+    private $arguments;
 
     private function __construct(){}
 
     public static function getInstance(){
         static::$instance = static::$instance == null ? new TinyRequest() : static::$instance;
         return static::$instance;
+    }
+
+    public function getArguments(){
+        return $this->arguments;
+    }
+
+    public function getArgument($arg){
+        return $this->arguments[$arg];
+    }
+
+    public function setArguments($arguments){
+        return $this->arguments = $arguments;
     }
 
     //TODO : a lot of refactoring !!!

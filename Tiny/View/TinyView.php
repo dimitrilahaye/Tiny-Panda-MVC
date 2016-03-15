@@ -3,6 +3,7 @@ namespace Tiny\View;
 use Exception;
 use Tiny\Manager\TinyDirectory;
 use Tiny\Manager\TinyCache;
+use Tiny\Manager\TinyRoute;
 /**
  * Class TinyView
  * @package Tiny\View
@@ -61,14 +62,14 @@ class TinyView {
     /**
      * 
      * @param type $routeName : name of the route for the redirection
-     * @param type $params : the parameters we want to pass to the template view
      * @param type $args : the arguments we want to pass to the redirection url
+     * @param type $params : the parameters we want to pass to the template view
      * @throws Exception
      * 
      * Search into routeCache.ini for the section corresponding to the $routeName
      * then redirect to the url corresponding.
      */
-    public function redirect($routeName, $params, $args){
+    public function redirect($routeName, $args, $params){
         $tinyDir = new TinyDirectory();
         $tinyCache = new TinyCache();
         $tinyCache->regenerateRouteCacheFile();
@@ -92,10 +93,7 @@ class TinyView {
      */
     private function generateRedirection($routeCacheIni, $routeName, $args, $params){
         if(isset($routeCacheIni[$routeName])){
-            $redirectionURL = $this->getRedirectionURL($routeCacheIni[$routeName]["route"]);
-            if($args != null){
-                $redirectionURL .= "/".$args;
-            }
+            $redirectionURL = $this->getRedirectionURL($routeCacheIni[$routeName]["route"], $args);
             if($params != null){
                 //TODO : construct header with params in it !!
                 //And manage params in Router.php
@@ -111,7 +109,10 @@ class TinyView {
      * @param type String routeURL : route url returned by the routeCache.ini
      * @return type String : the url for the redirection
      */
-    private function getRedirectionURL($routeURL){
-        return "http".(($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://").$_SERVER["HTTP_HOST"]."/".$routeURL;
+    private function getRedirectionURL($routeURL, $args){
+        $tinyRoute = new TinyRoute();
+        $routeURL = $tinyRoute->generateRouteWithArguments($routeURL, $args);
+        return "http".(($_SERVER['SERVER_PORT'] == 443) ? "s://" : "://")
+            .$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"].$routeURL;
     }
 }

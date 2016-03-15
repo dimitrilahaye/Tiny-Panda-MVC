@@ -18,6 +18,12 @@ class TinyPDO extends PDO{
      */
     protected $fileIni;
 
+    /*
+        insert : post("panda", array("name"=>"Toto", "weight"=>3.5));
+        update : put("panda", 12, array("name"=>"Toto", "weight"=>3.5));
+        delete : delete("panda", 12);
+    */
+
     public function __construct(){
         $tinyDir = new TinyDirectory();
         $this->fileIni = $tinyDir->getConfigFile(__DIR__, 'db.ini');
