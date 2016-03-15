@@ -278,10 +278,34 @@ return $this->view()->render('About/afficher.php', $params);
 ```
 ----------
 ##### <i class="icon-pencil"></i> Redirect to another action/view with params
+```ini
+;;Tiny/Configuration/routing.ini
+[test/$id1/redirect/$id2]
+controller = \Project\Controllers\TestController
+action = redirectAction
+argument[] = id1
+argument[] = id2
+name = test redirect
+```
 ```php
-$params = array("user" => "toto");
-$this->view()->redirect('about redirect', $params, 12);
-//in action from the route named 'about redirect' you will be able to manage $id (12)
+//Project/Controllers/TestController.php
+public function homeAction(){
+//...
+  $arguments = array("id1" => "Hello", "id2" => "World");
+  $params = array("user" => "toto");
+  // following line will redirect browser to route named "test redirect"
+  // with two arguments in the uri ("Hello" and "World")
+  // and $user = "toto" in parameters
+  $this->view()->redirect("test redirect", $arguments, $params);
+}
+//...
+public function redirectAction($request){
+    // in action linked to the "test redirect" route, we can handle the arguments previously setted
+    echo $request->getArgument("id1");
+    /*
+      Hello
+    */
+}
 ```
 ----------
 #####  <i class="icon-file"></i> Use views template
@@ -331,8 +355,6 @@ class User {
 ### ![ ](http://dl-multimedias.net/img/tiny_panda.gif) <i class="icon-cog"></i>Coming Soon
 
 > - Update the README with TestController and the last updates
->
-> - More than one parameter by route
 >
 > - Implement the configuration of method GET, POST, etc. for the route
 >
