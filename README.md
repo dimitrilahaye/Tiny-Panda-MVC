@@ -94,12 +94,12 @@ method = listerAction
 name = about lister
 
 ;;route's definition with one param : http://mysite.com/about/afficher/2
-[about/afficher]
+[about/afficher/$id]
 controller = \Project\Controllers\AboutController
 method = afficherAction
 name = about afficher
 ;variable argument for about/afficher route
-param = id
+argument[] = id
 ;... other routes
 ```
 ----------
