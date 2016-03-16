@@ -5,12 +5,12 @@ use Project\Models\User;
 
 class TestController extends TinyController{
 
-    public function homeAction(){
+    public function home(){
         $params = array("user" => "toto");
         $this->view()->redirect("test redirect1", array("id1" => 1223, "id2" => "Dimitri"), $params);
     }
     
-    public function jsonAction(){
+    public function json(){
         // prepare objects of class User
         $users = [];
         $subUsers = [];
@@ -51,7 +51,69 @@ class TestController extends TinyController{
         echo $myJson."<br/>";
     }
     
-    public function redirectAction($request){
+    public function redirect($request){
         echo $request->getArgument("id1");
     }
+
+    public function pdo(){
+        $pdo = $this->getManager()->get("pdo");
+        
+        // INSERT datas
+        /* will generate this query :
+            INSERT INTO pandas (name) VALUES (?)
+        */
+        $pdo->post("pandas", array("name"=>"Kiwi"));
+        $pdo->post("pandas", array("name"=>"Ananas"));
+        
+        // SELECT * datas
+        /* will generate this query :
+            UPDATE pandas SET name = ? WHERE id = ?
+        */
+        $pandas = $pdo->getAll("pandas");
+        foreach ($pandas as $key => $panda) {
+            echo $panda["name"]."<br/>";
+        }
+        
+        // SELECT datas
+        /* will generate this query :
+            SELECT * FROM pandas WHERE id = ?
+        */
+        $pandas = $pdo->get("pandas", array("id"=>1));
+        foreach ($pandas as $key => $panda) {
+            echo $panda["name"]."<br/>";
+        }
+        
+        // UPDATE datas
+        /* will generate this query :
+            UPDATE pandas SET name = ? WHERE id = ?
+        */
+        $pdo->put("pandas", array("name"=>"Cassis"), array("id"=>1));
+        
+        // UPDATE datas on all lines of the table
+        /* will generate this query :
+            UPDATE pandas SET name = ?
+        */
+        $pdo->put("pandas", array("name"=>"ohohohohohoh"), null);
+        
+        // DELETE one element
+        /* will generate this query :
+             DELETE FROM pandas WHERE id = ?
+        */
+        $pdo->delete("pandas", array("id"=>2));
+        
+        // DELETE all !
+        /* will generate this query :
+            DELETE FROM pandas
+        */
+        $pdo->deleteAll("pandas");
+        
+        // Close connection
+        $pdo->close($pdo);
+    }
+
+
+    /*
+
+
+    */
 }
