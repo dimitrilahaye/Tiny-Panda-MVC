@@ -143,7 +143,7 @@ enable = true
 namespace Project\Controllers;
 use Tiny\Controller\TinyController;
 //Controller class for [about/afficher] route (in configuration example)
-class AboutController extends Controller{
+class AboutController extends TinyController{
 //...
 }
 ```
