@@ -20,7 +20,7 @@ The purpose of this project is to practice my study of the MVC pattern in PHP.
 - [Project folder](#--project-folder)
 	- [Create a Controller](#-create-a-controller)
 	- [Create a method related to a route](#-create-a-method-related-to-a-route)
-	- [Call PDO in Controller method](#-call-pdo-in-controller-method)
+	- [Call PDO in Controller methods](#-call-pdo-in-controller-methods)
 	- [Serializing and Deserializing](#-serializing-and-deserializing)
 	- [Return View with parameters](#-return-view-with-parameters)
   	- [Redirect to another action/view with params](#-redirect-to-another-actionview-with-params)
@@ -161,9 +161,58 @@ public function afficherAction($id){
 ```php
 //...
 $pdo = $this->getManager()->get("pdo");
-$query = $pdo->prepare('select * from user where id ='.$id);
-$query->execute();
-$user = $query->fetch();
+
+// INSERT datas
+/* will generate this query :
+    INSERT INTO pandas (name) VALUES (?)
+*/
+$pdo->post("pandas", array("name"=>"Kiwi"));
+$pdo->post("pandas", array("name"=>"Ananas"));
+
+// SELECT * datas
+/* will generate this query :
+    UPDATE pandas SET name = ? WHERE id = ?
+*/
+$pandas = $pdo->getAll("pandas");
+foreach ($pandas as $key => $panda) {
+    echo $panda["name"]."<br/>";
+}
+
+// SELECT datas
+/* will generate this query :
+    SELECT * FROM pandas WHERE id = ?
+*/
+$pandas = $pdo->get("pandas", array("id"=>1));
+foreach ($pandas as $key => $panda) {
+    echo $panda["name"]."<br/>";
+}
+
+// UPDATE datas
+/* will generate this query :
+    UPDATE pandas SET name = ? WHERE id = ?
+*/
+$pdo->put("pandas", array("name"=>"Cassis"), array("id"=>1));
+
+// UPDATE datas on all lines of the table
+/* will generate this query :
+    UPDATE pandas SET name = ?
+*/
+$pdo->put("pandas", array("name"=>"ohohohohohoh"), null);
+
+// DELETE one element
+/* will generate this query :
+     DELETE FROM pandas WHERE id = ?
+*/
+$pdo->delete("pandas", array("id"=>2));
+
+// DELETE all !
+/* will generate this query :
+    DELETE FROM pandas
+*/
+$pdo->deleteAll("pandas");
+
+// Close connection
+$pdo->close($pdo);
 //...
 ```
 ----------
