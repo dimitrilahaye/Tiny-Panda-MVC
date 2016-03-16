@@ -83,23 +83,23 @@ Modify *`~/Tiny/Configuration/routing.init`*
 ;;home route's controller
 controller = \Project\Controllers\AboutController
 ;;home route's action in this controller
-action = totoAction
+method = toto
 ;;home route's name
 name = root
 
 ;;route's definition : http://mysite.com/about/lister
 [about/lister]
 controller = \Project\Controllers\AboutController
-method = listerAction
+method = lister
 name = about lister
 
 ;;route's definition with one param : http://mysite.com/about/afficher/2
 [about/afficher/$id]
 controller = \Project\Controllers\AboutController
-method = afficherAction
+method = afficher
 name = about afficher
 ;variable argument for about/afficher route
-argument[] = id
+arguments[] = id
 ;... other routes
 ```
 ----------
@@ -152,7 +152,7 @@ class AboutController extends Controller{
 ```php
 <?php
 //Method for [about/afficher] route (in configuration example)
-public function afficherAction($id){
+public function afficher($id){
 //...
 }
 ```
@@ -331,14 +331,14 @@ return $this->view()->render('About/afficher.php', $params);
 ;;Tiny/Configuration/routing.ini
 [test/$id1/redirect/$id2]
 controller = \Project\Controllers\TestController
-action = redirectAction
-argument[] = id1
-argument[] = id2
+method = redirect
+arguments[] = id1
+arguments[] = id2
 name = test redirect
 ```
 ```php
 //Project/Controllers/TestController.php
-public function homeAction(){
+public function home(){
 //...
   $arguments = array("id1" => "Hello", "id2" => "World");
   $params = array("user" => "toto");
@@ -348,7 +348,7 @@ public function homeAction(){
   $this->view()->redirect("test redirect", $arguments, $params);
 }
 //...
-public function redirectAction($request){
+public function redirect($request){
     // in action linked to the "test redirect" route, we can handle the arguments previously setted
     echo $request->getArgument("id1");
     /*
