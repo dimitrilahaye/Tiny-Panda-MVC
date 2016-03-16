@@ -18,14 +18,14 @@ class TinyRoute {
      * Return route without system directories
      */
     public function getRoute($request){
-        $url = $request['REQUEST_URI'];
-        $dir = $request['SCRIPT_NAME'];
-        $url = rtrim(ltrim($url, '/'), '/');
-        $dir = rtrim(ltrim($dir, '/'), '/');
-        $dir = explode('/', $dir);
+        $url = $request["REQUEST_URI"];
+        $dir = $request["SCRIPT_NAME"];
+        $url = rtrim(ltrim($url, "/"), "/");
+        $dir = rtrim(ltrim($dir, "/"), "/");
+        $dir = explode("/", $dir);
         array_pop($dir);
-        $url = str_replace($dir, '', $url);
-        $url = ltrim($url, '/');
+        $url = str_replace($dir, "", $url);
+        $url = ltrim($url, "/");
         return $url == "" ? "/" : $url;
     }
 
@@ -37,7 +37,7 @@ class TinyRoute {
      * Returns route name if arguments inside (eg. http://mysite.com/route/12 becomes /route/$arg)
      */
     public function generateRouteName($route, $fileIni){
-        $route = explode('/', $route);
+        $route = explode("/", $route);
         $fileIniKeys = array_keys($fileIni);
         $matchingRoutes = [];
         $matchingRoutes = $this->getMatchingRoutes($fileIniKeys, $route);
@@ -56,7 +56,7 @@ class TinyRoute {
         $matchingRoutes = [];
         $_matchingRoutesReturn = false;
         foreach($fileIniKeys as $key) { 
-            $keyAsArray = explode('/', $key);
+            $keyAsArray = explode("/", $key);
             if(sizeof($keyAsArray) == $size){
                 for ($i=0; $i < (sizeof($keyAsArray)-1) ; $i++) {
                     if($i%2 == 0){
@@ -142,7 +142,7 @@ class TinyRoute {
         } else if(!isset($fileIni[$route])){
             return false;
         } else if(isset($fileIni[$route])) {
-            if(isset($fileIni[$route]["argument"])){
+            if(isset($fileIni[$route]["arguments"])){
                 return true;
             }
         }
@@ -175,8 +175,8 @@ class TinyRoute {
         $cleanedRoute = $this->generateRouteName($route, $fileIni);
         $routeAsArray = explode("/", $route);
         $finalArgs = [];
-        if(isset($fileIni[$cleanedRoute]["argument"])){
-            $arguments = $fileIni[$cleanedRoute]["argument"];
+        if(isset($fileIni[$cleanedRoute]["arguments"])){
+            $arguments = $fileIni[$cleanedRoute]["arguments"];
             $idx = 0;
             if(sizeof($arguments) > 0){
                 for ($i=0; $i < sizeof($arguments); $i++) {

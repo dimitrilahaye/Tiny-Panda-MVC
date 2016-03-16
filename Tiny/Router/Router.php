@@ -47,7 +47,7 @@ class Router {
         if(isset($route[0])) {
             $this->routing($route, $request);
         } else {
-            throw new Exception('incorrect URL');
+            throw new Exception("incorrect URL");
         }
     }
 
@@ -60,25 +60,25 @@ class Router {
      */
     private function routing($route, TinyRequest $request){
         $tinyDir = new TinyDirectory();
-        $fileIni = $tinyDir->getConfigFile(__DIR__, 'routing.ini');
+        $fileIni = $tinyDir->getConfigFile(__DIR__, "routing.ini");
         $args = null;
         if($fileIni != null){
             $routingIni = parse_ini_file($fileIni, true);
             List($args, $route) = $this->tinyRoute->cleanRoute($route, $routingIni);
             $route = $route == "/" ? "." : $route;
             if(isset($routingIni[$route])) {
-                $controller = $routingIni[$route]['controller'];
+                $controller = $routingIni[$route]["controller"];
                 $controllerClass = $this->tinyRoute->generateController($controller);
                 if ($controllerClass == null) {
-                    throw new Exception('Class ' . $controller . ' doesn\'t seem to exist...');
+                    throw new Exception("Class " . $controller . " doesn\'t seem to exist...");
                 }
-                $action = $routingIni[$route]['action'];
+                $action = $routingIni[$route]["method"];
                 $this->tinyRoute->generateAndLaunchAction($controllerClass, $action, $args, $request);
             } else {
-                throw new Exception('Route doesn\'t configure');
+                throw new Exception("Route doesn't configure");
             }
         } else {
-            throw new Exception('Unable to find or read routing.ini...');
+            throw new Exception("Unable to find or read routing.ini...");
         }
     }
 }
