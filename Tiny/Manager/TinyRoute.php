@@ -1,6 +1,7 @@
 <?php
 
 namespace Tiny\Manager;
+use \Exception;
 
 
 /**
@@ -113,6 +114,14 @@ class TinyRoute {
         foreach ($args as $key => $value) {
             $innerArgs[] = $value;
         }
+
+        $tinyDir = new TinyDirectory();
+        $fileIni = $tinyDir->getConfigFile(__DIR__, "routing.ini");
+        $routingIni = parse_ini_file($fileIni, true);
+        if(sizeof($routingIni[$routeURL]["arguments"]) != sizeof($innerArgs)){
+            throw new Exception("You have not passed the good number of arguments for route : ".$routeURL);
+        }
+
         $finalRoute = "";
         $routeURLAsArray = explode("/", $routeURL);
         $idx = 0;
@@ -245,7 +254,7 @@ class TinyRoute {
      */
     public function cleanRoute($route, $routing_init) {
         $args = null;
-        if (self::isArgs($routing_init, $route)) {
+        if ($this->isArgs($routing_init, $route)) {
             $args = $this->generateArg($route, $routing_init);
             $route = $this->generateRouteName($route, $routing_init);
             return array($args, $route);
