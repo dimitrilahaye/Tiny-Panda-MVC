@@ -30,7 +30,8 @@ class TinyPDO extends PDO implements TinyPersistenceInterface {
             $username = $dbIni['database']['username'];
             $password = $dbIni['database']['password'];
             $dns = $driver.':dbname='.$dbname.';host='.$host.';port='.$port;
-            parent::__construct($dns, $username, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            parent::__construct($dns, $username, $password,
+                array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
         } else {
             throw new Exception('Unable to find or read '.$this->fileIni.'...');
         }
@@ -62,51 +63,96 @@ class TinyPDO extends PDO implements TinyPersistenceInterface {
         return $return;
     }
     public function post($table, $values){
-        List($keys, $arrValues, $tokens) = $this->manageValues($values);
-        $stmt = $this->prepare("INSERT INTO ". $table ." (". $keys .") VALUES (". $tokens .")");
-        $this->bindParams($stmt, $arrValues);
-        $stmt->execute();
-        $stmt->closeCursor();
+        try{
+            $this->beginTransaction();
+            List($keys, $arrValues, $tokens) = $this->manageValues($values);
+            $stmt = $this->prepare("INSERT INTO ". $table ." (". $keys .") VALUES (". $tokens .")");
+            $this->bindParams($stmt, $arrValues);
+            $stmt->execute();
+            $this->commit();
+        } catch(Exception $e){
+            $this->rollBack();
+            echo "PDO Error : ". $e->getMessage();
+            $stmt->closeCursor();
+        } finally{
+            $stmt->closeCursor();
+        }
     }
     public function put($table, $values, $filter){
-        $set = $this->manageSet($values);
-        $setValues = [];
-        foreach ($values as $key => $value) {
-            $setValues[] = $value;
+        try{
+            $this->beginTransaction();
+            $set = $this->manageSet($values);
+            $setValues = [];
+            foreach ($values as $key => $value) {
+                $setValues[] = $value;
+            }
+            List($where, $whereValues) = $this->manageWhereClause($filter);
+            for ($i=sizeof($setValues) - 1; $i >= 0; $i--) { 
+                array_unshift($whereValues, $setValues[$i]);
+            }
+            $query = "UPDATE ". $table ." SET ". $set . " WHERE ". $where;
+            $stmt = $this->prepare($query);
+            $this->bindParams($stmt, $whereValues);
+            $stmt->execute();
+            $this->commit();
+        } catch(Exception $e){
+            $this->rollBack();
+            echo "PDO Error : ". $e->getMessage();
+            $stmt->closeCursor();
+        } finally{
+            $stmt->closeCursor();
         }
-        List($where, $whereValues) = $this->manageWhereClause($filter);
-        for ($i=sizeof($setValues) - 1; $i >= 0; $i--) { 
-            array_unshift($whereValues, $setValues[$i]);
-        }
-        $query = "UPDATE ". $table ." SET ". $set . " WHERE ". $where;
-        $stmt = $this->prepare($query);
-        $this->bindParams($stmt, $whereValues);
-        $stmt->execute();
-        $stmt->closeCursor();
     }
     public function putAll($table, $values){
-        $set = $this->manageSet($values);
-        $setValues = [];
-        foreach ($values as $key => $value) {
-            $setValues[] = $value;
+        try{
+            $this->beginTransaction();
+            $set = $this->manageSet($values);
+            $setValues = [];
+            foreach ($values as $key => $value) {
+                $setValues[] = $value;
+            }
+            $query = "UPDATE ". $table ." SET ". $set;
+            $stmt = $this->prepare($query);
+            $this->bindParams($stmt, $setValues);
+            $stmt->execute();
+            $this->commit();
+        } catch(Exception $e){
+            $this->rollBack();
+            echo "PDO Error : ". $e->getMessage();
+            $stmt->closeCursor();
+        } finally{
+            $stmt->closeCursor();
         }
-        $query = "UPDATE ". $table ." SET ". $set;
-        $stmt = $this->prepare($query);
-        $this->bindParams($stmt, $setValues);
-        $stmt->execute();
-        $stmt->closeCursor();
     }
     public function delete($table, $filter){
-        List($where, $whereValues) = $this->manageWhereClause($filter);
-        $stmt = $this->prepare("DELETE FROM " . $table . " WHERE " . $where);
-        $this->bindParams($stmt, $whereValues);
-        $stmt->execute();
-        $stmt->closeCursor();
+        try{
+            $this->beginTransaction();
+            List($where, $whereValues) = $this->manageWhereClause($filter);
+            $stmt = $this->prepare("DELETE FROM " . $table . " WHERE " . $where);
+            $this->bindParams($stmt, $whereValues);
+            $stmt->execute();
+            $this->commit();
+        } catch(Exception $e){
+            $this->rollBack();
+            echo "PDO Error : ". $e->getMessage();
+            $stmt->closeCursor();
+        } finally{
+            $stmt->closeCursor();
+        }
     }
     public function deleteAll($table){
-        $stmt = $this->prepare("DELETE FROM " . $table);
-        $stmt->execute();
-        $stmt->closeCursor();
+        try{
+            $this->beginTransaction();
+            $stmt = $this->prepare("DELETE FROM " . $table);
+            $stmt->execute();
+            $this->commit();
+        } catch(Exception $e){
+            $this->rollBack();
+            echo "PDO Error : ". $e->getMessage();
+            $stmt->closeCursor();
+        } finally{
+            $stmt->closeCursor();
+        }
     }
     public function close($connection){
         $connection = null;

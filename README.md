@@ -405,19 +405,19 @@ class User {
 
 > - Update the README with TestController and the last updates
 >
-> - Manage transaction inside PDO wrapper
->
-> - Implement the configuration of method GET, POST, etc. for the route
->
 > - Finish wrapper for TinyRequest
 >
 > - Do wrapper for TinyResponse
 >
+> - Implement cookie and session wrappers
+>
+> - After PDO, a little bit of Mongo ?
+>
+> - Implement the configuration of method GET, POST, etc. for the route
+>
 > - Do dependency injection
 >
 > - Implement other php types object for TinyJson (Date, Time, DateTime, Null, ...)
->
-> - Implement cookie and session wrappers
 
 ----------
 
