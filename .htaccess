@@ -1,5 +1,5 @@
 RewriteEngine on
-RewriteBase /
+RewriteBase /edsa-tiny
 
 ## cannot be an existing file
 RewriteCond %{REQUEST_FILENAME} !-f

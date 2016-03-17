@@ -47,6 +47,14 @@ interface TinyPersistenceInterface {
 	
 	/**
 	* @param String $table the table where to launch query
+	* @param Array $values parameters for the query
+	*
+	* Update all elements in $table with $values
+	*/
+	function putAll($table, $values);
+	
+	/**
+	* @param String $table the table where to launch query
 	* @param Array $filter parameters for the query
 	*
 	* Delete all elements in $table which match with $filter

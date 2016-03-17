@@ -93,7 +93,7 @@ class TestController extends TinyController{
         /* will generate this query :
             UPDATE pandas SET name = ?
         */
-        $pdo->put("pandas", array("name"=>"ohohohohohoh"), null);
+        $pdo->putAll("pandas", array("name"=>"ohohohohohoh"));
         
         // DELETE one element
         /* will generate this query :

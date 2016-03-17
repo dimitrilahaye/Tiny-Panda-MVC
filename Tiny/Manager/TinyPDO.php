@@ -2,7 +2,6 @@
 namespace Tiny\Manager;
 Use PDO;
 Use Exception;
-Use Tiny\Manager\TinyPersistenceInterface;
 
 /**
  * Class TinyPDO
@@ -31,7 +30,7 @@ class TinyPDO extends PDO implements TinyPersistenceInterface {
             $username = $dbIni['database']['username'];
             $password = $dbIni['database']['password'];
             $dns = $driver.':dbname='.$dbname.';host='.$host.';port='.$port;
-            parent::__construct($dns, $username, $password);
+            parent::__construct($dns, $username, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         } else {
             throw new Exception('Unable to find or read '.$this->fileIni.'...');
         }
@@ -75,22 +74,25 @@ class TinyPDO extends PDO implements TinyPersistenceInterface {
         foreach ($values as $key => $value) {
             $setValues[] = $value;
         }
-        if($filter != null){
-            List($where, $whereValues) = $this->manageWhereClause($filter);
-            for ($i=sizeof($setValues) - 1; $i >= 0; $i--) { 
-                array_unshift($whereValues, $setValues[$i]);
-            }
+        List($where, $whereValues) = $this->manageWhereClause($filter);
+        for ($i=sizeof($setValues) - 1; $i >= 0; $i--) { 
+            array_unshift($whereValues, $setValues[$i]);
+        }
+        $query = "UPDATE ". $table ." SET ". $set . " WHERE ". $where;
+        $stmt = $this->prepare($query);
+        $this->bindParams($stmt, $whereValues);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+    public function putAll($table, $values){
+        $set = $this->manageSet($values);
+        $setValues = [];
+        foreach ($values as $key => $value) {
+            $setValues[] = $value;
         }
         $query = "UPDATE ". $table ." SET ". $set;
-        if(isset($where)){
-            $query .=  " WHERE ". $where;
-        }
         $stmt = $this->prepare($query);
-        if ($filter == null){
-           $this->bindParams($stmt, $setValues);
-        } else {
-            $this->bindParams($stmt, $whereValues);
-        }
+        $this->bindParams($stmt, $setValues);
         $stmt->execute();
         $stmt->closeCursor();
     }
